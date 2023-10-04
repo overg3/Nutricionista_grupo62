@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class Dieta {
 
     private int idDieta;
+    private Profesional profesional;
     private String nombre;
     private Paciente paciente;
     private LocalDate fechaInicio;
@@ -16,9 +17,10 @@ public class Dieta {
     public Dieta() {
     }
 
-    public Dieta(int idDieta, String nombre, Paciente paciente, LocalDate fechaInicio, LocalDate fechaFinal, double pesoInicial, double pesoFinal, boolean estadoDieta) {
+    public Dieta(int idDieta, String nombre, Profesional profesional, Paciente paciente, LocalDate fechaInicio, LocalDate fechaFinal, double pesoInicial, double pesoFinal, boolean estadoDieta) {
         this.idDieta = idDieta;
         this.nombre = nombre;
+        this.profesional = profesional;
         this.paciente = paciente;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
@@ -27,8 +29,9 @@ public class Dieta {
         this.estadoDieta = estadoDieta;
     }
 
-    public Dieta(String nombre, Paciente paciente, LocalDate fechaInicio, LocalDate fechaFinal, double pesoInicial, double pesoFinal, boolean estadoDieta) {
+    public Dieta(String nombre, Profesional profesional, Paciente paciente, LocalDate fechaInicio, LocalDate fechaFinal, double pesoInicial, double pesoFinal, boolean estadoDieta) {
         this.nombre = nombre;
+        this.profesional = profesional;
         this.paciente = paciente;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
@@ -99,6 +102,14 @@ public class Dieta {
 
     public void setEstadoDieta(boolean estadoDieta) {
         this.estadoDieta = estadoDieta;
+    }
+
+    public Profesional getProfesional() {
+        return profesional;
+    }
+
+    public void setProfesional(Profesional profesional) {
+        this.profesional = profesional;
     }
 
     @Override
