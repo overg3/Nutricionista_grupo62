@@ -34,7 +34,7 @@ public class PacienteData {
         
     }
     
-    public static Paciente buscarPaciente (){
+    public static Paciente buscarPacienteDNI (String dni){
         return null;
     }
 

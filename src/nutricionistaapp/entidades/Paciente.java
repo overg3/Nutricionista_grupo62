@@ -6,6 +6,7 @@ import java.time.LocalDate;
 public class Paciente {
 
     private int idPaciente;
+    private Profesional profesional;
     private String apellido;
     private String nombre;
     private String dni;
@@ -21,8 +22,9 @@ public class Paciente {
     public Paciente() {
     }
 
-    public Paciente(int idPaciente, String apellido, String nombre, String dni, String domicilio, String telefono, String email, Genero genero, LocalDate fechaNac, double pesoActual, double pesoDeseado, boolean estadoPaciente) {
+    public Paciente(int idPaciente, Profesional profesional, String apellido, String nombre, String dni, String domicilio, String telefono, String email, Genero genero, LocalDate fechaNac, double pesoActual, double pesoDeseado, boolean estadoPaciente) {
         this.idPaciente = idPaciente;
+        this.profesional = profesional;
         this.apellido = apellido;
         this.nombre = nombre;
         this.dni = dni;
@@ -36,7 +38,8 @@ public class Paciente {
         this.estadoPaciente = estadoPaciente;
     }
 
-    public Paciente(String apellido, String nombre, String dni, String domicilio, String telefono, String email, Genero genero, LocalDate fechaNac, double pesoActual, double pesoDeseado, boolean estadoPaciente) {
+    public Paciente(Profesional profesional, String apellido, String nombre, String dni, String domicilio, String telefono, String email, Genero genero, LocalDate fechaNac, double pesoActual, double pesoDeseado, boolean estadoPaciente) {
+        this.profesional = profesional;
         this.apellido = apellido;
         this.nombre = nombre;
         this.dni = dni;
@@ -144,6 +147,14 @@ public class Paciente {
 
     public void setEstadoPaciente(boolean estadoPaciente) {
         this.estadoPaciente = estadoPaciente;
+    }
+
+    public Profesional getProfesional() {
+        return profesional;
+    }
+
+    public void setProfesional(Profesional profesional) {
+        this.profesional = profesional;
     }
 
     @Override
