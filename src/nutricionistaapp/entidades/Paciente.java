@@ -49,6 +49,8 @@ public class Paciente {
         this.pesoDeseado = pesoDeseado;
         this.estadoPaciente = estadoPaciente;
     }
+    
+    
 
     public int getIdPaciente() {
         return idPaciente;
