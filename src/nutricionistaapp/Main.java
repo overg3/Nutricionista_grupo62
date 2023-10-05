@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.util.List;
 import nutricionistaapp.accesoDatos.ComidaData;
 import nutricionistaapp.accesoDatos.PacienteData;
+import nutricionistaapp.accesoDatos.ProfesionalData;
 import nutricionistaapp.categorias.ComidaTipo;
 import nutricionistaapp.categorias.Genero;
 import nutricionistaapp.entidades.Comida;
 import nutricionistaapp.entidades.Paciente;
+import nutricionistaapp.entidades.Profesional;
 
 public class Main {
 
@@ -22,6 +24,15 @@ public class Main {
 //        PacienteData.agregarPaciente(paciente);
 //
 //            PacienteData.borrarPaciente(10);
+        
+        
+        Profesional profesional = new Profesional(7, "Carranzo", "Pepe",
+                "33834768", "Av. Particular 78", "46445262", "asadad@gmail.com",
+                true, "3597564");
+        
+        ProfesionalData.modificarProfesional(profesional);
+        
+
     }
 
 }
