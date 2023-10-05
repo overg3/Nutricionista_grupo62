@@ -1,12 +1,13 @@
 package nutricionistaapp;
 
 import java.time.LocalDate;
+import java.util.List;
 import nutricionistaapp.accesoDatos.PacienteData;
 import nutricionistaapp.categorias.Genero;
 import nutricionistaapp.entidades.Paciente;
 
 public class Main {
-    
+
     public static void main(String[] args) {
 
         // Instancia nueva de paciente (modificar DNI para evitar error de duplicado)
@@ -18,8 +19,6 @@ public class Main {
 //
 //            PacienteData.borrarPaciente(10);
 
-        PacienteData.modificarPaciente(paciente);
-        
     }
-    
+
 }
