@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import nutricionistaapp.categorias.Genero;
 import nutricionistaapp.entidades.Paciente;
 
@@ -82,8 +80,8 @@ public class PacienteData {
         Connection conexion = Conexion.getConnection();
         String sql = "UPDATE paciente SET estadoPaciente = false WHERE idPaciente = ?";
 
-        try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
+        try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+            
 
             ps.setInt(1, idPaciente);
 
