@@ -17,7 +17,7 @@ public class PacienteData {
         Connection conexion = Conexion.getConnection();
         String sql = "INSERT INTO paciente (apellido, nombre, dni, domicilio, "
                 + "telefono, genero, email, fechaNac, pesoActual, pesoDeseado, "
-                + "estadoPaciente) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+                + "estadoPaciente, altura) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -33,6 +33,7 @@ public class PacienteData {
             ps.setDouble(9, paciente.getPesoActual());
             ps.setDouble(10, paciente.getPesoDeseado());
             ps.setBoolean(11, paciente.isEstadoPaciente());
+            ps.setDouble(12, paciente.getAltura());
 
             ps.executeUpdate();
             ps.close();
@@ -50,7 +51,7 @@ public class PacienteData {
         Connection conexion = Conexion.getConnection();
         String sql = "UPDATE paciente SET apellido = ?, nombre = ?, dni = ?, "
                 + "domicilio = ?, telefono = ?, genero = ?, email = ?, "
-                + "fechaNac = ? WHERE idPaciente = ?";
+                + "fechaNac = ?, altura = ? WHERE idPaciente = ?";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -63,7 +64,9 @@ public class PacienteData {
             ps.setString(6, paciente.getGenero().toString());
             ps.setString(7, paciente.getEmail());
             ps.setDate(8, Date.valueOf(paciente.getFechaNac()));
-            ps.setInt(9, paciente.getIdPaciente());
+            ps.setDouble(9, paciente.getAltura());
+            ps.setInt(10, paciente.getIdPaciente());
+            
 
             ps.executeUpdate();
             ps.close();
@@ -81,7 +84,6 @@ public class PacienteData {
         String sql = "UPDATE paciente SET estadoPaciente = false WHERE idPaciente = ?";
 
         try (PreparedStatement ps = conexion.prepareStatement(sql)) {
-            
 
             ps.setInt(1, idPaciente);
 
@@ -117,6 +119,7 @@ public class PacienteData {
                 paciente.setEmail(rs.getString("email"));
                 paciente.setGenero(Genero.valueOf(rs.getString("genero").toUpperCase()));
                 paciente.setPesoActual(rs.getDouble("pesoActual"));
+                paciente.setAltura(rs.getDouble("altura"));
                 paciente.setPesoDeseado(rs.getDouble("pesoDeseado"));
                 paciente.setEstadoPaciente(rs.getBoolean("estadoPaciente"));
 
@@ -153,6 +156,7 @@ public class PacienteData {
                 paciente.setEmail(rs.getString("email"));
                 paciente.setGenero(Genero.valueOf(rs.getString("genero").toUpperCase()));
                 paciente.setPesoActual(rs.getDouble("pesoActual"));
+                paciente.setAltura(rs.getDouble("altura"));
                 paciente.setPesoDeseado(rs.getDouble("pesoDeseado"));
                 paciente.setEstadoPaciente(rs.getBoolean("estadoPaciente"));
 
@@ -188,6 +192,7 @@ public class PacienteData {
                 paciente.setEmail(rs.getString("email"));
                 paciente.setGenero(Genero.valueOf(rs.getString("genero").toUpperCase()));
                 paciente.setPesoActual(rs.getDouble("pesoActual"));
+                paciente.setAltura(rs.getDouble("altura"));
                 paciente.setPesoDeseado(rs.getDouble("pesoDeseado"));
                 paciente.setEstadoPaciente(rs.getBoolean("estadoPaciente"));
 
@@ -249,15 +254,15 @@ public class PacienteData {
                 paciente.setEmail(rs.getString("email"));
                 paciente.setGenero(Genero.valueOf(rs.getString("genero").toUpperCase()));
                 paciente.setPesoActual(rs.getDouble("pesoActual"));
+                paciente.setAltura(rs.getDouble("altura"));
                 paciente.setPesoDeseado(rs.getDouble("pesoDeseado"));
                 paciente.setEstadoPaciente(rs.getBoolean("estadoPaciente"));
-                
+
                 System.out.println("Paciente encontrado");
             } else {
                 System.out.println("El paciente no existe");
             }
             ps.close();
-            
 
         } catch (SQLException ex) {
             System.out.println("Error al buscar el paciente: " + ex.getMessage());

@@ -15,13 +15,15 @@ public class Paciente {
     private Genero genero;
     private LocalDate fechaNac;
     private double pesoActual;
+    private double altura;
+    private double imc;
     private double pesoDeseado;
     private boolean estadoPaciente;
 
     public Paciente() {
     }
 
-    public Paciente(int idPaciente, String apellido, String nombre, String dni, String domicilio, String telefono, String email, Genero genero, LocalDate fechaNac, double pesoActual, double pesoDeseado, boolean estadoPaciente) {
+    public Paciente(int idPaciente, String apellido, String nombre, String dni, String domicilio, String telefono, String email, Genero genero, LocalDate fechaNac, double pesoActual, double altura, double imc, double pesoDeseado, boolean estadoPaciente) {
         this.idPaciente = idPaciente;
         this.apellido = apellido;
         this.nombre = nombre;
@@ -32,11 +34,13 @@ public class Paciente {
         this.genero = genero;
         this.fechaNac = fechaNac;
         this.pesoActual = pesoActual;
+        this.altura = altura;
+        this.imc = pesoActual / (altura * altura);
         this.pesoDeseado = pesoDeseado;
         this.estadoPaciente = estadoPaciente;
     }
 
-    public Paciente(String apellido, String nombre, String dni, String domicilio, String telefono, String email, Genero genero, LocalDate fechaNac, double pesoActual, double pesoDeseado, boolean estadoPaciente) {
+    public Paciente(String apellido, String nombre, String dni, String domicilio, String telefono, String email, Genero genero, LocalDate fechaNac, double pesoActual, double altura, double imc, double pesoDeseado, boolean estadoPaciente) {
         this.apellido = apellido;
         this.nombre = nombre;
         this.dni = dni;
@@ -46,11 +50,11 @@ public class Paciente {
         this.genero = genero;
         this.fechaNac = fechaNac;
         this.pesoActual = pesoActual;
+        this.altura = altura;
+        this.imc = pesoActual / (altura * altura);
         this.pesoDeseado = pesoDeseado;
         this.estadoPaciente = estadoPaciente;
     }
-    
-    
 
     public int getIdPaciente() {
         return idPaciente;
@@ -146,6 +150,22 @@ public class Paciente {
 
     public void setEstadoPaciente(boolean estadoPaciente) {
         this.estadoPaciente = estadoPaciente;
+    }
+
+    public double getAltura() {
+        return altura;
+    }
+
+    public void setAltura(double altura) {
+        this.altura = altura;
+    }
+
+    public double getImc() {
+        return imc;
+    }
+
+    public void setImc(double imc) {
+        this.imc = imc;
     }
 
     @Override

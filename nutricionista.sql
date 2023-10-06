@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-10-2023 a las 23:24:45
+-- Tiempo de generación: 07-10-2023 a las 01:51:12
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -63,6 +63,13 @@ CREATE TABLE `dieta` (
   `estadoDieta` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `dieta`
+--
+
+INSERT INTO `dieta` (`idDieta`, `nombre`, `idPaciente`, `idProfesional`, `fechaInicio`, `fechaFinal`, `pesoInicial`, `pesoFinal`, `estadoDieta`) VALUES
+(2, 'Dieta de la vaca loca', 8, 4, '2023-10-06', '2023-12-12', 65.2, 75.1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -94,6 +101,7 @@ CREATE TABLE `paciente` (
   `email` varchar(50) NOT NULL,
   `fechaNac` date NOT NULL,
   `pesoActual` double NOT NULL,
+  `altura` double NOT NULL,
   `pesoDeseado` double NOT NULL,
   `estadoPaciente` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -102,15 +110,15 @@ CREATE TABLE `paciente` (
 -- Volcado de datos para la tabla `paciente`
 --
 
-INSERT INTO `paciente` (`idPaciente`, `apellido`, `nombre`, `dni`, `domicilio`, `telefono`, `genero`, `email`, `fechaNac`, `pesoActual`, `pesoDeseado`, `estadoPaciente`) VALUES
-(6, 'Gómez', 'María', '12345678', 'Calle Principal 123', '123456789', 'Femenino', 'maria@gmail.com', '1990-05-15', 80.3, 60, 1),
-(7, 'Pérez', 'Juan', '38765432', 'Avenida Secundaria 456', '987654321', 'Masculino', 'juan@gmail.com', '1985-08-20', 85, 75, 1),
-(8, 'López', 'Ana', '45678901', 'Plaza Central 789', '789012345', 'Femenino', 'ana@gmail.com', '1995-03-10', 65.2, 55, 1),
-(9, 'Rodríguez', 'Luis', '23456789', 'Calle Secundaria 789', '456789012', 'Masculino', 'luis@gmail.com', '1992-11-25', 78.3, 70, 1),
-(10, 'Fernández', 'Carlos', '34567890', 'Avenida Principal 567', '567890123', 'MASCULINO', 'carlos@gmail.com', '1988-07-02', 90.7, 80, 0),
-(12, 'Pepperino', 'Pepe', '33833333', 'Av. ASasd 464', '464446465', 'OTRO', 'prueba@gmail.com', '1988-02-01', 90.5, 75.2, 1),
-(13, 'Pepperino', 'Pepe2', '33833331', 'Av. Asd 734', '46444444', 'MASCULINO', 'asd@asd.com', '1988-09-09', 90.5, 75.2, 1),
-(14, 'Prueba', 'NombrePrueba', '31312321', 'Av. ASasd 464', '464446465', 'MASCULINO', 'prueba@gmail.com', '1988-08-08', 200, 110, 1);
+INSERT INTO `paciente` (`idPaciente`, `apellido`, `nombre`, `dni`, `domicilio`, `telefono`, `genero`, `email`, `fechaNac`, `pesoActual`, `altura`, `pesoDeseado`, `estadoPaciente`) VALUES
+(6, 'Gómez', 'María', '12345678', 'Calle Principal 123', '123456789', 'Femenino', 'maria@gmail.com', '1990-05-15', 80.3, 0, 60, 1),
+(7, 'Pérez', 'Juan', '38765432', 'Avenida Secundaria 456', '987654321', 'Masculino', 'juan@gmail.com', '1985-08-20', 85, 0, 75, 1),
+(8, 'López', 'Ana', '45678901', 'Plaza Central 789', '789012345', 'Femenino', 'ana@gmail.com', '1995-03-10', 65.2, 0, 55, 1),
+(9, 'Rodríguez', 'Luis', '23456789', 'Calle Secundaria 789', '456789012', 'Masculino', 'luis@gmail.com', '1992-11-25', 78.3, 0, 70, 1),
+(10, 'Fernández', 'Carlos', '34567890', 'Avenida Principal 567', '567890123', 'MASCULINO', 'carlos@gmail.com', '1988-07-02', 90.7, 0, 80, 0),
+(12, 'Pepperino', 'Pepe', '33833333', 'Av. ASasd 464', '464446465', 'OTRO', 'prueba@gmail.com', '1988-02-01', 90.5, 0, 75.2, 1),
+(13, 'Pepperino', 'Pepe2', '33833331', 'Av. Asd 734', '46444444', 'MASCULINO', 'asd@asd.com', '1988-09-09', 90.5, 0, 75.2, 1),
+(14, 'Prueba', 'NombrePrueba', '31312321', 'Av. ASasd 464', '464446465', 'MASCULINO', 'prueba@gmail.com', '1988-08-08', 200, 0, 110, 1);
 
 -- --------------------------------------------------------
 
@@ -155,6 +163,15 @@ CREATE TABLE `registropeso` (
   `fecha` date NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `registropeso`
+--
+
+INSERT INTO `registropeso` (`idRegistro`, `idPaciente`, `peso`, `fecha`, `estado`) VALUES
+(1, 12, 200, '2023-10-06', 1),
+(2, 12, 180.5, '2023-10-06', 1),
+(3, 12, 180, '2023-10-06', 0);
 
 --
 -- Índices para tablas volcadas
@@ -219,7 +236,7 @@ ALTER TABLE `comidas`
 -- AUTO_INCREMENT de la tabla `dieta`
 --
 ALTER TABLE `dieta`
-  MODIFY `idDieta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDieta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `indicacion`
@@ -243,7 +260,7 @@ ALTER TABLE `profesional`
 -- AUTO_INCREMENT de la tabla `registropeso`
 --
 ALTER TABLE `registropeso`
-  MODIFY `idRegistro` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idRegistro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
@@ -253,7 +270,8 @@ ALTER TABLE `registropeso`
 -- Filtros para la tabla `dieta`
 --
 ALTER TABLE `dieta`
-  ADD CONSTRAINT `dieta_ibfk_1` FOREIGN KEY (`idProfesional`) REFERENCES `profesional` (`idProfesional`);
+  ADD CONSTRAINT `dieta_ibfk_1` FOREIGN KEY (`idProfesional`) REFERENCES `profesional` (`idProfesional`),
+  ADD CONSTRAINT `dieta_ibfk_2` FOREIGN KEY (`idPaciente`) REFERENCES `paciente` (`idPaciente`);
 
 --
 -- Filtros para la tabla `indicacion`

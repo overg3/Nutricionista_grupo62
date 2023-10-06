@@ -5,9 +5,11 @@ public enum ComidaTipo {
     FRUTA,
     VERDURA,
     LACTEOS,
-    CARNES,
+    CARNES_MAGRAS,
     LEGUMBRES,
-    HARINAS,
-    CEREALES;
+    GRANOS_ENTEROS,
+    GRASAS_SALUDABLES,
+    CEREALES,
+    INFUSIONES;
 
 }
