@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-10-2023 a las 01:51:12
+-- Tiempo de generación: 10-10-2023 a las 01:56:21
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -43,7 +43,26 @@ CREATE TABLE `comidas` (
 
 INSERT INTO `comidas` (`idComida`, `nombre`, `tipo`, `calorias`, `estadoComida`) VALUES
 (1, 'Manzana', 'FRUTA', 50, 0),
-(2, 'Milanesa de pollo', 'FRUTA', 250, 1);
+(2, 'Milanesa de pollo', 'CARNES_ROJAS', 250, 1),
+(3, 'Brócoli', 'VERDURA', 55, 1),
+(4, 'Yogur', 'LACTEOS', 120, 1),
+(5, 'Filete de res', 'CARNES_ROJAS', 250, 1),
+(6, 'Pechuga de pollo', 'CARNES_MAGRAS', 165, 1),
+(7, 'Lentejas', 'LEGUMBRES', 230, 1),
+(8, 'Arroz integral', 'GRANOS_ENTEROS', 210, 1),
+(9, 'Aceite de oliva', 'GRASAS_SALUDABLES', 120, 1),
+(10, 'Avena', 'CEREALES', 150, 1),
+(11, 'Té verde', 'INFUSIONES', 0, 1),
+(12, 'Naranja', 'FRUTA', 43, 1),
+(13, 'Zanahoria', 'VERDURA', 41, 1),
+(14, 'Leche', 'LACTEOS', 150, 1),
+(15, 'Salmón', 'CARNES_MAGRAS', 206, 1),
+(16, 'Garbanzos', 'LEGUMBRES', 164, 1),
+(17, 'Quinua', 'GRANOS_ENTEROS', 222, 1),
+(18, 'Aguacate', 'GRASAS_SALUDABLES', 234, 1),
+(19, 'Pan integral', 'CEREALES', 80, 1),
+(20, 'Té de manzanilla', 'INFUSIONES', 0, 1),
+(21, 'Yogur griego', 'LACTEOS', 150, 1);
 
 -- --------------------------------------------------------
 
@@ -81,8 +100,18 @@ CREATE TABLE `indicacion` (
   `idComida` int(11) NOT NULL,
   `idDieta` int(11) NOT NULL,
   `horario` varchar(50) NOT NULL,
-  `porcion` int(11) NOT NULL
+  `porcion` int(11) NOT NULL,
+  `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `indicacion`
+--
+
+INSERT INTO `indicacion` (`idIndic`, `idComida`, `idDieta`, `horario`, `porcion`, `estado`) VALUES
+(1, 1, 2, 'REFRIGERIO_NOCTURNO', 150, 1),
+(2, 1, 2, 'ALMUERZO', 200, 0),
+(3, 1, 2, 'ALMUERZO', 90, 1);
 
 -- --------------------------------------------------------
 
@@ -189,6 +218,7 @@ ALTER TABLE `comidas`
 --
 ALTER TABLE `dieta`
   ADD PRIMARY KEY (`idDieta`),
+  ADD UNIQUE KEY `nombre` (`nombre`),
   ADD KEY `idPaciente` (`idPaciente`),
   ADD KEY `dieta_ibfk_1` (`idProfesional`);
 
@@ -230,7 +260,7 @@ ALTER TABLE `registropeso`
 -- AUTO_INCREMENT de la tabla `comidas`
 --
 ALTER TABLE `comidas`
-  MODIFY `idComida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idComida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `dieta`
@@ -242,7 +272,7 @@ ALTER TABLE `dieta`
 -- AUTO_INCREMENT de la tabla `indicacion`
 --
 ALTER TABLE `indicacion`
-  MODIFY `idIndic` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idIndic` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `paciente`

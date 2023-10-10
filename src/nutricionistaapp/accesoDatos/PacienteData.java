@@ -66,7 +66,6 @@ public class PacienteData {
             ps.setDate(8, Date.valueOf(paciente.getFechaNac()));
             ps.setDouble(9, paciente.getAltura());
             ps.setInt(10, paciente.getIdPaciente());
-            
 
             ps.executeUpdate();
             ps.close();
@@ -78,7 +77,7 @@ public class PacienteData {
 
     }
 
-    public static void borrarPaciente(int idPaciente) {
+    public static void bajaPaciente(int idPaciente) {
 
         Connection conexion = Conexion.getConnection();
         String sql = "UPDATE paciente SET estadoPaciente = false WHERE idPaciente = ?";
@@ -240,6 +239,49 @@ public class PacienteData {
 
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setString(1, dni);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                paciente = new Paciente();
+                paciente.setIdPaciente(rs.getInt("idPaciente"));
+                paciente.setApellido(rs.getString("apellido"));
+                paciente.setNombre(rs.getString("nombre"));
+                paciente.setDni(rs.getString("dni"));
+                paciente.setDomicilio(rs.getString("domicilio"));
+                paciente.setTelefono(rs.getString("telefono"));
+                paciente.setEmail(rs.getString("email"));
+                paciente.setGenero(Genero.valueOf(rs.getString("genero").toUpperCase()));
+                paciente.setPesoActual(rs.getDouble("pesoActual"));
+                paciente.setAltura(rs.getDouble("altura"));
+                paciente.setPesoDeseado(rs.getDouble("pesoDeseado"));
+                paciente.setEstadoPaciente(rs.getBoolean("estadoPaciente"));
+
+                System.out.println("Paciente encontrado");
+            } else {
+                System.out.println("El paciente no existe");
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar el paciente: " + ex.getMessage());
+        }
+
+        return paciente;
+
+    }
+
+    public static Paciente buscarPacienteID(int idPaciente) {
+
+        Paciente paciente = null;
+        Connection conexion = Conexion.getConnection();
+
+        String sql = "SELECT * FROM paciente WHERE idPaciente = ?";
+
+        try {
+
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idPaciente);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {

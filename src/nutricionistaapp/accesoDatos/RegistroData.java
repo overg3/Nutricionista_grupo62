@@ -55,7 +55,7 @@ public class RegistroData {
 
     }
 
-    public static void borrarRegistro(int idRegistro) {
+    public static void bajaRegistro(int idRegistro) {
 
         Connection conexion = Conexion.getConnection();
         String sql = "UPDATE registroPeso SET estado = false WHERE idRegistro = ?";

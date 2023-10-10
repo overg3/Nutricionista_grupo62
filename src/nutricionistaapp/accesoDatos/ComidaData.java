@@ -2,7 +2,11 @@ package nutricionistaapp.accesoDatos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import nutricionistaapp.categorias.ComidaTipo;
 import nutricionistaapp.entidades.Comida;
 
 public class ComidaData {
@@ -32,7 +36,7 @@ public class ComidaData {
 
     }
 
-    public static void borrarComida(int idComida) {
+    public static void bajaComida(int idComida) {
 
         Connection conexion = Conexion.getConnection();
         String sql = "UPDATE comidas SET estadoComida = false WHERE idComida = ?";
@@ -72,6 +76,42 @@ public class ComidaData {
         } catch (SQLException ex) {
             System.err.println("Error al modificar datos del alimento: " + ex.getMessage());
         }
+
+    }
+
+    public static Comida buscarComidaNombre(String nombre) {
+
+        Comida comida = null;
+
+        Connection conexion = Conexion.getConnection();
+        String sql = "SELECT * FROM comidas WHERE nombre = ?";
+
+        PreparedStatement ps;
+        try {
+            ps = conexion.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                comida = new Comida();
+                comida.setIdComida(rs.getInt("idComida"));
+                comida.setNombre(rs.getString("nombre"));
+                comida.setTipo(ComidaTipo.valueOf(rs.getString("tipo")));
+                comida.setCalorias(rs.getDouble("calorias"));
+                comida.setEstadoComida(rs.getBoolean("estadoComida"));
+
+                System.out.println("Alimento encontrado");
+            } else {
+                System.out.println("El alimento no existe");
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            System.err.println("Error al buscar el alimento: " + ex.getMessage());
+        }
+
+        return comida;
 
     }
 

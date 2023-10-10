@@ -2,6 +2,7 @@ package nutricionistaapp.accesoDatos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import nutricionistaapp.entidades.Profesional;
 
@@ -36,7 +37,7 @@ public class ProfesionalData {
 
     }
 
-    public static void borrarProfesional(int idProfesional) {
+    public static void bajaProfesional(int idProfesional) {
 
         Connection conexion = Conexion.getConnection();
         String sql = "UPDATE profesional SET estado = false WHERE idProfesional = ?";
@@ -83,6 +84,46 @@ public class ProfesionalData {
             System.err.println("Error al modificar datos del profesional: " + ex.getMessage());
         }
 
+    }
+    
+    public static Profesional buscarProfesionalID (int idProfesional){
+        
+        Profesional profesional = null;
+        Connection conexion = Conexion.getConnection();
+
+        String sql = "SELECT * FROM profesional WHERE idProfesional = ?";
+
+        try {
+
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idProfesional);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                profesional = new Profesional();
+                profesional.setIdProfesional(rs.getInt("idProfesional"));
+                profesional.setApellido(rs.getString("apellido"));
+                profesional.setNombre(rs.getString("nombre"));
+                profesional.setDni(rs.getString("dni"));
+                profesional.setDomicilio(rs.getString("domicilio"));
+                profesional.setTelefono(rs.getString("telefono"));
+                profesional.setEmail(rs.getString("email"));
+                profesional.setEstado(rs.getBoolean("estado"));
+                profesional.setMatricula(rs.getString("matricula"));
+
+                System.out.println("Profesional encontrado");
+            } else {
+                System.out.println("El profesional no existe");
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar el profesional: " + ex.getMessage());
+        }
+
+        return profesional;
+        
     }
 
 }
