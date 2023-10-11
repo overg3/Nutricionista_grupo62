@@ -193,7 +193,7 @@ public class ComidaData {
             ps.close();
 
         } catch (SQLException ex) {
-            System.err.println("Error obtener la lista de alimentos: " + ex.getMessage());
+            System.err.println("Error al obtener la lista de alimentos: " + ex.getMessage());
         }
 
         return listaAlimentos;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-10-2023 a las 02:05:15
+-- Tiempo de generación: 12-10-2023 a las 01:48:42
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -249,7 +249,6 @@ ALTER TABLE `comidas`
 --
 ALTER TABLE `dieta`
   ADD PRIMARY KEY (`idDieta`),
-  ADD UNIQUE KEY `nombre` (`nombre`),
   ADD KEY `idPaciente` (`idPaciente`),
   ADD KEY `dieta_ibfk_1` (`idProfesional`);
 
@@ -303,7 +302,7 @@ ALTER TABLE `comidas`
 -- AUTO_INCREMENT de la tabla `dieta`
 --
 ALTER TABLE `dieta`
-  MODIFY `idDieta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idDieta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `indicacion`
