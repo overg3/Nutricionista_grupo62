@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.ArrayList;
 import nutricionistaapp.entidades.Dieta;
 
 public class DietaData {
@@ -105,12 +107,12 @@ public class DietaData {
                 dieta = new Dieta();
                 dieta.setIdDieta(rs.getInt("idDieta"));
                 dieta.setNombre(rs.getString("nombre"));
-                
+
                 // Se obtiene el paciente y el profesional usando los métodos de
                 // búsqueda por ID
                 dieta.setPaciente(PacienteData.buscarPacienteID(rs.getInt("idPaciente")));
                 dieta.setProfesional(ProfesionalData.buscarProfesionalID(rs.getInt("idProfesional")));
-                
+
                 dieta.setFechaInicio(rs.getDate("fechaInicio").toLocalDate());
                 dieta.setFechaFinal(rs.getDate("fechaFinal").toLocalDate());
                 dieta.setPesoInicial(rs.getDouble("pesoInicial"));
@@ -128,6 +130,85 @@ public class DietaData {
         }
 
         return dieta;
+
+    }
+
+    public static Dieta buscarDietaID(int idDieta) {
+
+        Dieta dieta = null;
+
+        Connection conexion = Conexion.getConnection();
+        String sql = "SELECT * FROM dieta WHERE idDieta = ?";
+
+        PreparedStatement ps;
+        try {
+            ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idDieta);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                dieta = new Dieta();
+                dieta.setIdDieta(rs.getInt("idDieta"));
+                dieta.setNombre(rs.getString("nombre"));
+
+                // Se obtiene el paciente y el profesional usando los métodos de
+                // búsqueda por ID
+                dieta.setPaciente(PacienteData.buscarPacienteID(rs.getInt("idPaciente")));
+                dieta.setProfesional(ProfesionalData.buscarProfesionalID(rs.getInt("idProfesional")));
+
+                dieta.setFechaInicio(rs.getDate("fechaInicio").toLocalDate());
+                dieta.setFechaFinal(rs.getDate("fechaFinal").toLocalDate());
+                dieta.setPesoInicial(rs.getDouble("pesoInicial"));
+                dieta.setPesoFinal(rs.getDouble("pesoFinal"));
+                dieta.setEstadoDieta(rs.getBoolean("estadoDieta"));
+
+                System.out.println("Dieta encontrada");
+            } else {
+                System.out.println("La dieta no existe");
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            System.err.println("Error al buscar la dieta: " + ex.getMessage());
+        }
+
+        return dieta;
+
+    }
+
+    public static List<Dieta> listarDietas() {
+
+        List<Dieta> listaDietas = new ArrayList<>();
+
+        Connection conexion = Conexion.getConnection();
+        String sql = "SELECT * FROM comidas WHERE estadoComida = 1";
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Dieta dieta = new Dieta();
+                dieta.setIdDieta(rs.getInt("idDieta"));
+                dieta.setNombre(rs.getString("nombre"));
+                dieta.setPaciente(PacienteData.buscarPacienteID(rs.getInt("idPaciente")));
+                dieta.setProfesional(ProfesionalData.buscarProfesionalID(rs.getInt("idProfesional")));
+                dieta.setFechaInicio(rs.getDate("fechaInicio").toLocalDate());
+                dieta.setFechaFinal(rs.getDate("fechaFinal").toLocalDate());
+                dieta.setPesoInicial(rs.getDouble("pesoInicial"));
+                dieta.setPesoFinal(rs.getDouble("pesoFinal"));
+                dieta.setEstadoDieta(rs.getBoolean("estadoDieta"));
+
+                listaDietas.add(dieta);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            System.err.println("Error obtener la lista de dietas: " + ex.getMessage());
+        }
+
+        return listaDietas;
 
     }
 

@@ -2,7 +2,11 @@ package nutricionistaapp.accesoDatos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import nutricionistaapp.categorias.Horario;
 import nutricionistaapp.entidades.Indicacion;
 
 public class IndicacionData {
@@ -18,7 +22,7 @@ public class IndicacionData {
 
             ps.setInt(1, indicacion.getComida().getIdComida());
             ps.setInt(2, indicacion.getDieta().getIdDieta());
-            ps.setString(3, String.valueOf(indicacion.getHorario()));
+            ps.setString(3, String.valueOf(indicacion.getHorario()).toUpperCase());
             ps.setInt(4, indicacion.getPorcion());
             ps.setBoolean(5, indicacion.isEstado());
 
@@ -45,7 +49,7 @@ public class IndicacionData {
            
             ps.setInt(1, indicacion.getComida().getIdComida());
             ps.setInt(2, indicacion.getDieta().getIdDieta());
-            ps.setString(3, String.valueOf(indicacion.getHorario()));
+            ps.setString(3, String.valueOf(indicacion.getHorario()).toUpperCase());
             ps.setInt(4, indicacion.getPorcion());
             ps.setInt(5, indicacion.getIdIndicacion());
 
@@ -77,5 +81,39 @@ public class IndicacionData {
         }
 
     }
+    
+    public static List<Indicacion> listarIndicaciones(int idDieta){
+        
+        List<Indicacion> listaIndicaciones = new ArrayList<>();
+
+        Connection conexion = Conexion.getConnection();
+        String sql = "SELECT * FROM indicacion WHERE idDieta = ? AND estado = 1";
+        
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Indicacion indicacion = new Indicacion();
+                indicacion.setIdIndic(rs.getInt("idIndic"));
+                indicacion.setComida(ComidaData.buscarComidaID(rs.getInt("idComida")));
+                indicacion.setDieta(DietaData.buscarDietaID(rs.getInt("idDieta")));
+                indicacion.setHorario(Horario.valueOf(rs.getString("horario").toUpperCase()));
+                indicacion.setPorcion(rs.getInt("porcion"));
+                indicacion.setEstado(rs.getBoolean("estado"));
+
+                listaIndicaciones.add(indicacion);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            System.err.println("Error obtener la lista de indicaciones: " + ex.getMessage());
+        }
+
+        return listaIndicaciones;
+        
+    }
+    
+    
 
 }

@@ -3,7 +3,10 @@ package nutricionistaapp.accesoDatos;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import nutricionistaapp.entidades.Registro;
 
 public class RegistroData {
@@ -71,6 +74,37 @@ public class RegistroData {
         } catch (SQLException ex) {
             System.err.println("Error al borrar el registro: " + ex.getMessage());
         }
+
+    }
+
+    public static List<Registro> listaRegistros(int idPaciente) {
+
+        List<Registro> listaRegistros = new ArrayList<>();
+
+        Connection conexion = Conexion.getConnection();
+        String sql = "SELECT * FROM registropeso WHERE idPaciente = ? AND estado = 1";
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Registro registro = new Registro();
+                registro.setIdRegistro(rs.getInt("idRegistro"));
+                registro.setPaciente(PacienteData.buscarPacienteID(rs.getInt("idPaciente")));
+                registro.setPeso(rs.getDouble("peso"));
+                registro.setFecha(rs.getDate("fecha").toLocalDate());
+                registro.setEstado(rs.getBoolean("estado"));
+
+                listaRegistros.add(registro);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            System.err.println("Error obtener la lista de registros: " + ex.getMessage());
+        }
+
+        return listaRegistros;
 
     }
 

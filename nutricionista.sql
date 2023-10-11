@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-10-2023 a las 01:56:21
+-- Tiempo de generación: 11-10-2023 a las 02:05:15
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -22,6 +22,30 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `nutricionista` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `nutricionista`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `antecedentes`
+--
+
+CREATE TABLE `antecedentes` (
+  `idAntecedente` int(11) NOT NULL,
+  `idPaciente` int(11) NOT NULL,
+  `antecedente` varchar(50) NOT NULL,
+  `estado` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `antecedentes`
+--
+
+INSERT INTO `antecedentes` (`idAntecedente`, `idPaciente`, `antecedente`, `estado`) VALUES
+(1, 6, 'DIABETES', 1),
+(2, 7, 'HIPERTENSION', 1),
+(3, 8, 'CELIACO', 1),
+(4, 9, 'RENAL', 1),
+(5, 10, 'CANCER', 1);
 
 -- --------------------------------------------------------
 
@@ -207,6 +231,13 @@ INSERT INTO `registropeso` (`idRegistro`, `idPaciente`, `peso`, `fecha`, `estado
 --
 
 --
+-- Indices de la tabla `antecedentes`
+--
+ALTER TABLE `antecedentes`
+  ADD PRIMARY KEY (`idAntecedente`),
+  ADD KEY `idPaciente` (`idPaciente`);
+
+--
 -- Indices de la tabla `comidas`
 --
 ALTER TABLE `comidas`
@@ -257,6 +288,12 @@ ALTER TABLE `registropeso`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `antecedentes`
+--
+ALTER TABLE `antecedentes`
+  MODIFY `idAntecedente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `comidas`
 --
 ALTER TABLE `comidas`
@@ -295,6 +332,12 @@ ALTER TABLE `registropeso`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `antecedentes`
+--
+ALTER TABLE `antecedentes`
+  ADD CONSTRAINT `antecedentes_ibfk_1` FOREIGN KEY (`idPaciente`) REFERENCES `paciente` (`idPaciente`);
 
 --
 -- Filtros para la tabla `dieta`

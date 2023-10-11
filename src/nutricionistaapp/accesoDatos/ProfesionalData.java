@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import nutricionistaapp.entidades.Profesional;
 
 public class ProfesionalData {
@@ -85,9 +87,9 @@ public class ProfesionalData {
         }
 
     }
-    
-    public static Profesional buscarProfesionalID (int idProfesional){
-        
+
+    public static Profesional buscarProfesionalID(int idProfesional) {
+
         Profesional profesional = null;
         Connection conexion = Conexion.getConnection();
 
@@ -123,7 +125,42 @@ public class ProfesionalData {
         }
 
         return profesional;
-        
+
+    }
+
+    public static List<Profesional> listarProfesionales() {
+
+        List<Profesional> listaProfesionales = new ArrayList<>();
+
+        Connection conexion = Conexion.getConnection();
+        String sql = "SELECT * FROM profesional WHERE estadoProfesional = 1";
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Profesional profesional = new Profesional();
+                profesional.setIdProfesional(rs.getInt("idProfesional"));
+                profesional.setApellido(rs.getString("apellido"));
+                profesional.setNombre(rs.getString("nombre"));
+                profesional.setDni(rs.getString("dni"));
+                profesional.setDomicilio(rs.getString("domicilio"));
+                profesional.setTelefono(rs.getString("telefono"));
+                profesional.setEmail(rs.getString("email"));
+                profesional.setEstado(rs.getBoolean("estado"));
+                profesional.setMatricula(rs.getString("matricula"));
+
+                listaProfesionales.add(profesional);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            System.err.println("Error obtener la lista de profesionales: " + ex.getMessage());
+        }
+
+        return listaProfesionales;
+
     }
 
 }

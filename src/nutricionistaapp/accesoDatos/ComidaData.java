@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.List;
 import nutricionistaapp.categorias.ComidaTipo;
 import nutricionistaapp.entidades.Comida;
 
@@ -21,7 +21,7 @@ public class ComidaData {
             PreparedStatement ps = conexion.prepareStatement(sql);
 
             ps.setString(1, comida.getNombre());
-            ps.setString(2, comida.getTipo().toString());
+            ps.setString(2, comida.getTipo().toString().toUpperCase());
             ps.setDouble(3, comida.getCalorias());
             ps.setBoolean(4, comida.isEstadoComida());
 
@@ -54,6 +54,24 @@ public class ComidaData {
 
     }
 
+    public static void eliminarComida(int idComida) {
+
+        Connection conexion = Conexion.getConnection();
+        String sql = "DELETE FROM comidas WHERE idComida = ?";
+
+        try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+
+            ps.setInt(1, idComida);
+            ps.executeUpdate();
+            ps.close();
+            System.out.println("Alimento borrado");
+
+        } catch (SQLException ex) {
+            System.err.println("Error al borrar alimento: " + ex.getMessage());
+        }
+
+    }
+
     public static void modificarComida(Comida comida) {
 
         Connection conexion = Conexion.getConnection();
@@ -64,7 +82,7 @@ public class ComidaData {
             PreparedStatement ps = conexion.prepareStatement(sql);
 
             ps.setString(1, comida.getNombre());
-            ps.setString(2, comida.getTipo().toString());
+            ps.setString(2, comida.getTipo().toString().toUpperCase());
             ps.setDouble(3, comida.getCalorias());
             ps.setBoolean(4, comida.isEstadoComida());
             ps.setInt(5, comida.getIdComida());
@@ -97,7 +115,7 @@ public class ComidaData {
                 comida = new Comida();
                 comida.setIdComida(rs.getInt("idComida"));
                 comida.setNombre(rs.getString("nombre"));
-                comida.setTipo(ComidaTipo.valueOf(rs.getString("tipo")));
+                comida.setTipo(ComidaTipo.valueOf(rs.getString("tipo").toUpperCase()));
                 comida.setCalorias(rs.getDouble("calorias"));
                 comida.setEstadoComida(rs.getBoolean("estadoComida"));
 
@@ -112,6 +130,73 @@ public class ComidaData {
         }
 
         return comida;
+
+    }
+
+    public static Comida buscarComidaID(int idComida) {
+
+        Comida comida = null;
+
+        Connection conexion = Conexion.getConnection();
+        String sql = "SELECT * FROM comidas WHERE idComida = ?";
+
+        PreparedStatement ps;
+        try {
+            ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idComida);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                comida = new Comida();
+                comida.setIdComida(rs.getInt("idComida"));
+                comida.setNombre(rs.getString("nombre"));
+                comida.setTipo(ComidaTipo.valueOf(rs.getString("tipo").toUpperCase()));
+                comida.setCalorias(rs.getDouble("calorias"));
+                comida.setEstadoComida(rs.getBoolean("estadoComida"));
+
+                System.out.println("Alimento encontrado");
+            } else {
+                System.out.println("El alimento no existe");
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            System.err.println("Error al buscar el alimento: " + ex.getMessage());
+        }
+
+        return comida;
+
+    }
+
+    public static List<Comida> listarAlimentos() {
+
+        List<Comida> listaAlimentos = new ArrayList<>();
+
+        Connection conexion = Conexion.getConnection();
+        String sql = "SELECT * FROM comidas WHERE estadoComida = 1";
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Comida comida = new Comida();
+                comida.setIdComida(rs.getInt("idComida"));
+                comida.setNombre(rs.getString("nombre"));
+                comida.setTipo(ComidaTipo.valueOf(rs.getString("tipo").toUpperCase()));
+                comida.setCalorias(rs.getDouble("calorias"));
+                comida.setEstadoComida(rs.getBoolean("estadoComida"));
+
+                listaAlimentos.add(comida);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            System.err.println("Error obtener la lista de alimentos: " + ex.getMessage());
+        }
+
+        return listaAlimentos;
 
     }
 
