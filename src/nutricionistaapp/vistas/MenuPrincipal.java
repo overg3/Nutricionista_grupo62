@@ -3,6 +3,7 @@ package nutricionistaapp.vistas;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
+import static sun.net.www.http.HttpClient.New;
 
 public class MenuPrincipal extends javax.swing.JFrame {
 
@@ -64,9 +65,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu1.setText("Pacientes");
 
         jMenuItem2.setText("Nuevo paciente");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuItem3.setText("Buscar/Modificar paciente");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuItem4.setText("Baja de paciente");
@@ -164,6 +175,26 @@ public class MenuPrincipal extends javax.swing.JFrame {
         indicacionGUI.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        
+        jDesktopPane1.removeAll();
+       NuevoPaciente np= new NuevoPaciente ();
+       jDesktopPane1.add(np);
+        np.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        
+        jDesktopPane1.removeAll();
+        BuscaryModificarPaciente bp=new BuscaryModificarPaciente();
+        jDesktopPane1.add(bp);
+        bp.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
