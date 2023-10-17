@@ -114,7 +114,7 @@ public class Dieta {
 
     @Override
     public String toString() {
-        return idDieta + " - " + nombre;
+        return nombre + " - " + paciente.getNombre() + " " + paciente.getApellido();
     }
 
 }

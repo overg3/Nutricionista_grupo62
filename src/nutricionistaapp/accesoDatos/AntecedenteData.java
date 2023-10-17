@@ -13,19 +13,17 @@ public class AntecedenteData {
 
     public static void agregarAntecedente(Antecedente antecedente) {
 
-        Connection conexion = Conexion.getConnection();
         String sql = "INSERT INTO antecedentes (idPaciente, antecedente, estado)"
                 + " VALUES (?,?,?);";
 
-        try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setInt(1, antecedente.getPaciente().getIdPaciente());
             ps.setString(2, String.valueOf(antecedente.getAntecendete()).toUpperCase());
             ps.setBoolean(3, antecedente.isEstado());
 
             ps.executeUpdate();
-            ps.close();
             System.out.println("Antecedente registrado");
 
         } catch (SQLException ex) {
@@ -36,17 +34,15 @@ public class AntecedenteData {
 
     public static void modificarAntecedente(int idAntecedente, AntecedenteTipo antecedente) {
 
-        Connection conexion = Conexion.getConnection();
         String sql = "UPDATE antecedentes SET antecedente = ? WHERE idAntecedente = ?";
 
-        try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setString(1, String.valueOf(antecedente).toUpperCase());
             ps.setInt(2, idAntecedente);
 
             ps.executeUpdate();
-            ps.close();
             System.out.println("Antecedente modificado");
 
         } catch (SQLException ex) {
@@ -57,14 +53,13 @@ public class AntecedenteData {
 
     public static void eliminarAntecedente(int idAntecedente) {
 
-        Connection conexion = Conexion.getConnection();
         String sql = "DELETE FROM antecedentes WHERE idAntecedente = ?";
 
-        try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setInt(1, idAntecedente);
             ps.executeUpdate();
-            ps.close();
             System.out.println("Antecedente borrado");
 
         } catch (SQLException ex) {
@@ -77,12 +72,11 @@ public class AntecedenteData {
 
         List<Antecedente> listaAntecedentes = new ArrayList<>();
 
-        Connection conexion = Conexion.getConnection();
         String sql = "SELECT * FROM antecedentes WHERE estado = 1";
 
-        try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();) {
 
             while (rs.next()) {
                 Antecedente antecedente = new Antecedente();
@@ -93,13 +87,46 @@ public class AntecedenteData {
 
                 listaAntecedentes.add(antecedente);
             }
-            ps.close();
 
         } catch (SQLException ex) {
             System.err.println("Error al obtener la lista de antecedentes: " + ex.getMessage());
         }
 
         return listaAntecedentes;
+    }
+
+    public static List<Antecedente> listarAntecedentesIDPaciente(int idPaciente) {
+
+        List<Antecedente> listaAntecedentes = new ArrayList<>();
+
+        String sql = "SELECT * FROM antecedentes WHERE idPaciente = ? AND estado = 1";
+
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql);) {
+
+            ps.setInt(1, idPaciente);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Antecedente antecedente = new Antecedente();
+                antecedente.setIdAntecedente(rs.getInt("idAntecedente"));
+                antecedente.setPaciente(PacienteData.buscarPacienteID(rs.getInt("idPaciente")));
+                antecedente.setAntecendete(AntecedenteTipo.valueOf(rs.getString("antecedente").toUpperCase()));
+                antecedente.setEstado(rs.getBoolean("estado"));
+
+                listaAntecedentes.add(antecedente);
+            }
+
+            rs.close();
+
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener la lista de antecedentes: " + ex.getMessage());
+        }
+
+        return listaAntecedentes;
+
     }
 
 }

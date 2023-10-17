@@ -14,13 +14,12 @@ public class PacienteData {
 
     public static void agregarPaciente(Paciente paciente) {
 
-        Connection conexion = Conexion.getConnection();
         String sql = "INSERT INTO paciente (apellido, nombre, dni, domicilio, "
                 + "telefono, genero, email, fechaNac, pesoActual, pesoDeseado, "
                 + "estadoPaciente, altura) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
 
-        try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setString(1, paciente.getApellido());
             ps.setString(2, paciente.getNombre());
@@ -36,25 +35,21 @@ public class PacienteData {
             ps.setDouble(12, paciente.getAltura());
 
             ps.executeUpdate();
-            ps.close();
             System.out.println("Paciente " + paciente.getDni() + " agregado.");
 
         } catch (SQLException ex) {
             System.err.println("Error al agregar paciente: " + ex.getMessage());
-
         }
-
     }
 
     public static void modificarPaciente(Paciente paciente) {
 
-        Connection conexion = Conexion.getConnection();
         String sql = "UPDATE paciente SET apellido = ?, nombre = ?, dni = ?, "
                 + "domicilio = ?, telefono = ?, genero = ?, email = ?, "
                 + "fechaNac = ?, altura = ? WHERE idPaciente = ?";
 
-        try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setString(1, paciente.getApellido());
             ps.setString(2, paciente.getNombre());
@@ -68,44 +63,39 @@ public class PacienteData {
             ps.setInt(10, paciente.getIdPaciente());
 
             ps.executeUpdate();
-            ps.close();
             System.out.println("Paciente modificado");
 
         } catch (SQLException ex) {
             System.err.println("Error al modificar datos del paciente: " + ex.getMessage());
         }
-
     }
 
     public static void bajaPaciente(int idPaciente) {
 
-        Connection conexion = Conexion.getConnection();
         String sql = "UPDATE paciente SET estadoPaciente = false WHERE idPaciente = ?";
 
-        try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setInt(1, idPaciente);
 
             ps.executeUpdate();
-            ps.close();
             System.out.println("Paciente borrado");
 
         } catch (SQLException ex) {
             System.err.println("Error al borrar paciente: " + ex.getMessage());
         }
-
     }
 
     public static List<Paciente> listarPacientes() {
 
         List<Paciente> listaPacientes = new ArrayList<>();
 
-        Connection conexion = Conexion.getConnection();
         String sql = "SELECT * FROM paciente WHERE estadoPaciente = 1";
 
-        try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Paciente paciente = new Paciente();
@@ -124,25 +114,22 @@ public class PacienteData {
 
                 listaPacientes.add(paciente);
             }
-            ps.close();
 
         } catch (SQLException ex) {
             System.err.println("Error obtener la lista de pacientes: " + ex.getMessage());
         }
-
         return listaPacientes;
-
     }
 
     public static List<Paciente> listarPacientesBorrados() {
 
         List<Paciente> listaPacientes = new ArrayList<>();
-        Connection conexion = Conexion.getConnection();
+
         String sql = "SELECT * FROM paciente WHERE estadoPaciente = 0";
 
-        try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Paciente paciente = new Paciente();
@@ -161,24 +148,22 @@ public class PacienteData {
 
                 listaPacientes.add(paciente);
             }
-            ps.close();
 
         } catch (SQLException ex) {
             System.err.println("Error obtener la lista de pacientes: " + ex.getMessage());
         }
-
         return listaPacientes;
     }
 
     public static List<Paciente> listarTodosPacientes() {
 
         List<Paciente> listaPacientes = new ArrayList<>();
-        Connection conexion = Conexion.getConnection();
+
         String sql = "SELECT * FROM paciente";
 
-        try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Paciente paciente = new Paciente();
@@ -197,48 +182,42 @@ public class PacienteData {
 
                 listaPacientes.add(paciente);
             }
-            ps.close();
 
         } catch (SQLException ex) {
             System.err.println("Error obtener la lista de pacientes: " + ex.getMessage());
         }
-
         return listaPacientes;
     }
 
     public static void modificarPeso(int idPaciente, double peso) {
 
-        Connection conexion = Conexion.getConnection();
         String sql = "UPDATE paciente SET pesoActual = ? WHERE idPaciente = ?";
 
-        try {
-
-            PreparedStatement ps = conexion.prepareStatement(sql);
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setDouble(1, peso);
             ps.setInt(2, idPaciente);
 
             ps.executeUpdate();
-            ps.close();
             System.out.println("Peso del paciente actualizado");
 
         } catch (SQLException ex) {
             System.err.println("Error al modificar el peso del paciente: " + ex.getMessage());
         }
-
     }
 
     public static Paciente buscarPacienteDNI(String dni) {
 
         Paciente paciente = null;
-        Connection conexion = Conexion.getConnection();
 
         String sql = "SELECT * FROM paciente WHERE dni = ?";
 
-        try {
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
 
-            PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setString(1, dni);
+
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -261,27 +240,25 @@ public class PacienteData {
             } else {
                 System.out.println("El paciente no existe");
             }
-            ps.close();
+            rs.close();
 
         } catch (SQLException ex) {
             System.out.println("Error al buscar el paciente: " + ex.getMessage());
         }
-
         return paciente;
-
     }
 
     public static Paciente buscarPacienteID(int idPaciente) {
 
         Paciente paciente = null;
-        Connection conexion = Conexion.getConnection();
 
         String sql = "SELECT * FROM paciente WHERE idPaciente = ?";
 
-        try {
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
 
-            PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, idPaciente);
+
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -304,14 +281,12 @@ public class PacienteData {
             } else {
                 System.out.println("El paciente no existe");
             }
-            ps.close();
+            rs.close();
 
         } catch (SQLException ex) {
             System.out.println("Error al buscar el paciente: " + ex.getMessage());
         }
-
         return paciente;
-
     }
 
 }

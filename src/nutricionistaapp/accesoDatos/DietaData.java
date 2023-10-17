@@ -13,13 +13,12 @@ public class DietaData {
 
     public static void agregarDieta(Dieta dieta) {
 
-        Connection conexion = Conexion.getConnection();
         String sql = "INSERT INTO dieta (nombre, idPaciente, idProfesional, "
                 + "fechaInicio, fechaFinal, pesoInicial, pesoFinal, estadoDieta)"
                 + " VALUES (?,?,?,?,?,?,?,?);";
 
-        try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setString(1, dieta.getNombre());
             ps.setInt(2, dieta.getPaciente().getIdPaciente());
@@ -31,7 +30,6 @@ public class DietaData {
             ps.setBoolean(8, dieta.isEstadoDieta());
 
             ps.executeUpdate();
-            ps.close();
             System.out.println("Dieta '" + dieta.getNombre() + "' agregada.");
 
         } catch (SQLException ex) {
@@ -42,13 +40,12 @@ public class DietaData {
 
     public static void modificarDieta(Dieta dieta) {
 
-        Connection conexion = Conexion.getConnection();
         String sql = "UPDATE dieta SET nombre = ?, idPaciente = ?, idProfesional = ?,"
                 + " fechaInicio = ?, fechaFinal = ?, pesoInicial = ?, pesoFinal = ?,"
                 + " estadoDieta = ?, WHERE idDieta = ?";
 
-        try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setString(1, dieta.getNombre());
             ps.setInt(2, dieta.getPaciente().getIdPaciente());
@@ -61,7 +58,6 @@ public class DietaData {
             ps.setInt(9, dieta.getIdDieta());
 
             ps.executeUpdate();
-            ps.close();
             System.out.println("Dieta modificada");
 
         } catch (SQLException ex) {
@@ -72,15 +68,14 @@ public class DietaData {
 
     public static void bajaDieta(int idDieta) {
 
-        Connection conexion = Conexion.getConnection();
         String sql = "UPDATE dieta SET estadoDieta = false WHERE idDieta = ?";
 
-        try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setInt(1, idDieta);
 
             ps.executeUpdate();
-            ps.close();
             System.out.println("Dieta borrada");
 
         } catch (SQLException ex) {
@@ -93,12 +88,11 @@ public class DietaData {
 
         Dieta dieta = null;
 
-        Connection conexion = Conexion.getConnection();
         String sql = "SELECT * FROM dieta WHERE nombre = ?";
 
-        PreparedStatement ps;
-        try {
-            ps = conexion.prepareStatement(sql);
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+
             ps.setString(1, nombre);
             ResultSet rs = ps.executeQuery();
 
@@ -123,7 +117,7 @@ public class DietaData {
             } else {
                 System.out.println("La dieta no existe");
             }
-            ps.close();
+            rs.close();
 
         } catch (SQLException ex) {
             System.err.println("Error al buscar la dieta: " + ex.getMessage());
@@ -137,13 +131,13 @@ public class DietaData {
 
         Dieta dieta = null;
 
-        Connection conexion = Conexion.getConnection();
         String sql = "SELECT * FROM dieta WHERE idDieta = ?";
 
-        PreparedStatement ps;
-        try {
-            ps = conexion.prepareStatement(sql);
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+
             ps.setInt(1, idDieta);
+
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -167,7 +161,7 @@ public class DietaData {
             } else {
                 System.out.println("La dieta no existe");
             }
-            ps.close();
+            rs.close();
 
         } catch (SQLException ex) {
             System.err.println("Error al buscar la dieta: " + ex.getMessage());
@@ -181,12 +175,11 @@ public class DietaData {
 
         List<Dieta> listaDietas = new ArrayList<>();
 
-        Connection conexion = Conexion.getConnection();
-        String sql = "SELECT * FROM comidas WHERE estadoComida = 1";
+        String sql = "SELECT * FROM dieta WHERE estadoDieta = 1";
 
-        try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Dieta dieta = new Dieta();
@@ -202,14 +195,11 @@ public class DietaData {
 
                 listaDietas.add(dieta);
             }
-            ps.close();
 
         } catch (SQLException ex) {
             System.err.println("Error obtener la lista de dietas: " + ex.getMessage());
         }
-
         return listaDietas;
-
     }
 
 }
