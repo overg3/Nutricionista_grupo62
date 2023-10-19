@@ -1,7 +1,9 @@
 package nutricionistaapp.vistas;
 
+import java.awt.Color;
 import java.text.Normalizer;
 import java.util.List;
+import javax.swing.JInternalFrame;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
@@ -11,15 +13,16 @@ import nutricionistaapp.entidades.Paciente;
 public class CrearDietaPacienteGUI extends javax.swing.JDialog {
 
     private DefaultTableModel modeloTabla;
-    private CrearDietaGUI frame;
+    private JInternalFrame frame;
     private List<Paciente> listaPacientes;
 
     public CrearDietaPacienteGUI(java.awt.Frame parent, boolean modal,
-            CrearDietaGUI frame) {
+            JInternalFrame frame) {
         super(parent, modal);
         initComponents();
 
         this.frame = frame;
+
         crearNuevoModeloTabla();
         setSelectionListener();
 
@@ -327,23 +330,54 @@ public class CrearDietaPacienteGUI extends javax.swing.JDialog {
 
     private void seleccionarPaciente() {
 
+        CrearDietaGUI frame1 = null;
+        ModificarDietaGUI frame2 = null;
+
+        // Si el contenedor es de una instancia u otra
+        // se guardan en sus variables correspondientes
+        // para luego realizar una acción u otra
+        if (frame instanceof CrearDietaGUI) {
+            frame1 = (CrearDietaGUI) frame;
+        } else {
+            frame2 = (ModificarDietaGUI) frame;
+        }
+
         Paciente paciente = null;
         int fila = jtPacientes.getSelectedRow();
 
-        if (fila != -1) {
+        if (fila != -1 && frame1 != null) {
+
             String dni = (String) jtPacientes.getValueAt(fila, 0);
             paciente = PacienteData.buscarPacienteDNI(dni);
-            frame.setPaciente(paciente);
-            frame.getJlPacienteInfo().setText(paciente.getNombre() + " "
+            frame1.setPaciente(paciente);
+            frame1.getJlPacienteInfo().setText(paciente.getNombre() + " "
                     + paciente.getApellido());
-            frame.getJlGenero().setText("Género: " + paciente.getGenero());
-            frame.getJlAltura().setText("Altura: " + paciente.getAltura() / 100 + " m");
-            frame.getJlPesoActual().setText("Peso actual: " + paciente.getPesoActual() + " kg");
-            frame.getJlPesoDeseado().setText("Peso deseado: " + paciente.getPesoDeseado() + " kg");
+            frame1.getJlGenero().setText("Género: " + paciente.getGenero());
+            frame1.getJlAltura().setText("Altura: " + paciente.getAltura() / 100 + " m");
+            frame1.getJlPesoActual().setText("Peso actual: " + paciente.getPesoActual() + " kg");
+            frame1.getJlPesoDeseado().setText("Peso deseado: " + paciente.getPesoDeseado() + " kg");
             double pesoActual = paciente.getPesoActual();
             double altura = paciente.getAltura() / 100;
             double imc = pesoActual / (altura * altura);
-            frame.getJlIMC().setText("IMC: " + (float) imc);
+            frame1.getJlIMC().setText("IMC: " + (float) imc);
+            frame1.getJlPacienteInfo().setForeground(new Color(34, 135, 59));
+
+        } else if (fila != -1 && frame2 != null) {
+
+            String dni = (String) jtPacientes.getValueAt(fila, 0);
+            paciente = PacienteData.buscarPacienteDNI(dni);
+            frame2.setPaciente(paciente);
+            frame2.getJlPacienteInfo().setText(paciente.getNombre() + " "
+                    + paciente.getApellido());
+            frame2.getJlGenero().setText("Género: " + paciente.getGenero());
+            frame2.getJlAltura().setText("Altura: " + paciente.getAltura() / 100 + " m");
+            frame2.getJlPesoActual().setText("Peso actual: " + paciente.getPesoActual() + " kg");
+            frame2.getJlPesoDeseado().setText("Peso deseado: " + paciente.getPesoDeseado() + " kg");
+            double pesoActual = paciente.getPesoActual();
+            double altura = paciente.getAltura() / 100;
+            double imc = pesoActual / (altura * altura);
+            frame2.getJlIMC().setText("IMC: " + (float) imc);
+            frame2.verificarCambios();
         }
     }
 

@@ -76,7 +76,7 @@ public class IndicacionesGUI extends javax.swing.JInternalFrame {
         jtfNombreFiltro = new javax.swing.JTextField();
 
         setClosable(true);
-        setTitle(" Indicaciones de dieta");
+        setTitle(" Gestor de indicaciones");
 
         jlDNI.setText("DNI: 33834768");
 
@@ -121,7 +121,7 @@ public class IndicacionesGUI extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Búsqueda Avanzada...");
+        jButton1.setText("Buscar Dieta");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -460,7 +460,7 @@ public class IndicacionesGUI extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        IndicacionesSearchGUI busquedaVentana = new IndicacionesSearchGUI(null, true);
+        IndicacionesSearchGUI busquedaVentana = new IndicacionesSearchGUI(null, true, jcbDietas);
         busquedaVentana.setVisible(true);
         
     }//GEN-LAST:event_jButton1ActionPerformed

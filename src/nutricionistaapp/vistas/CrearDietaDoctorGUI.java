@@ -1,7 +1,9 @@
 package nutricionistaapp.vistas;
 
+import java.awt.Color;
 import java.text.Normalizer;
 import java.util.List;
+import javax.swing.JInternalFrame;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
@@ -11,11 +13,11 @@ import nutricionistaapp.entidades.Profesional;
 public class CrearDietaDoctorGUI extends javax.swing.JDialog {
 
     private DefaultTableModel modeloTabla;
-    private CrearDietaGUI frame;
+    private JInternalFrame frame;
     private List<Profesional> listaProfesionales;
 
     public CrearDietaDoctorGUI(java.awt.Frame parent, boolean modal,
-            CrearDietaGUI frame) {
+            JInternalFrame frame) {
         super(parent, modal);
         initComponents();
 
@@ -228,19 +230,19 @@ public class CrearDietaDoctorGUI extends javax.swing.JDialog {
     private void jtfNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyReleased
 
         filtrarLista();
-        
+
     }//GEN-LAST:event_jtfNombreKeyReleased
 
     private void jtfApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfApellidoKeyReleased
 
         filtrarLista();
-        
+
     }//GEN-LAST:event_jtfApellidoKeyReleased
 
     private void jtfMatriculaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfMatriculaKeyReleased
 
         filtrarLista();
-        
+
     }//GEN-LAST:event_jtfMatriculaKeyReleased
 
 
@@ -329,16 +331,37 @@ public class CrearDietaDoctorGUI extends javax.swing.JDialog {
 
     private void seleccionarProfesional() {
 
+        CrearDietaGUI frame1 = null;
+        ModificarDietaGUI frame2 = null;
+
+        if (frame instanceof CrearDietaGUI) {
+            frame1 = (CrearDietaGUI) frame;
+        } else {
+            frame2 = (ModificarDietaGUI) frame;
+        }
+
         Profesional profesional = null;
         int fila = jtDoctores.getSelectedRow();
 
-        if (fila != -1) {
+        if (fila != -1 && frame1 != null) {
+            
             String matricula = (String) jtDoctores.getValueAt(fila, 0);
             profesional = ProfesionalData.buscarProfesionalMatricula(matricula);
-            frame.setDoctor(profesional);
-            frame.getJlDoctorInfo().setText(profesional.getNombre() + " "
+            frame1.setDoctor(profesional);
+            frame1.getJlDoctorInfo().setText(profesional.getNombre() + " "
                     + profesional.getApellido());
-            frame.getJlMatricula().setText("Matrícula: " + profesional.getMatricula());
+            frame1.getJlMatricula().setText("Matrícula: " + profesional.getMatricula());
+            frame1.getJlDoctorInfo().setForeground(new Color(34, 135, 59));
+
+        } else if (fila != -1 && frame2 != null) {
+            
+            String matricula = (String) jtDoctores.getValueAt(fila, 0);
+            profesional = ProfesionalData.buscarProfesionalMatricula(matricula);
+            frame2.setDoctor(profesional);
+            frame2.getJlDoctorInfo().setText(profesional.getNombre() + " "
+                    + profesional.getApellido());
+            frame2.getJlMatricula().setText("Matrícula: " + profesional.getMatricula());
+            frame2.verificarCambios();
         }
     }
 
@@ -348,8 +371,8 @@ public class CrearDietaDoctorGUI extends javax.swing.JDialog {
         String cadenaNormalizada = Normalizer.normalize(cadena, Normalizer.Form.NFD);
         return cadenaNormalizada.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }
-    
-     private void setSelectionListener() {
+
+    private void setSelectionListener() {
 
         ListSelectionModel selectionModel = jtDoctores.getSelectionModel();
 

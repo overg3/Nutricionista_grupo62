@@ -42,7 +42,7 @@ public class DietaData {
 
         String sql = "UPDATE dieta SET nombre = ?, idPaciente = ?, idProfesional = ?,"
                 + " fechaInicio = ?, fechaFinal = ?, pesoInicial = ?, pesoFinal = ?,"
-                + " estadoDieta = ?, WHERE idDieta = ?";
+                + " estadoDieta = ? WHERE idDieta = ?";
 
         try (Connection conexion = Conexion.getConnection();
                 PreparedStatement ps = conexion.prepareStatement(sql)) {

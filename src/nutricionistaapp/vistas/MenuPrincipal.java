@@ -3,7 +3,6 @@ package nutricionistaapp.vistas;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
-import static sun.net.www.http.HttpClient.New;
 
 public class MenuPrincipal extends javax.swing.JFrame {
 
@@ -27,6 +26,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -95,6 +95,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem8);
 
+        jMenuItem12.setText("Modificar/Borrar dieta");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem12);
+
         jMenuItem9.setText("Gestionar indicaciones");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,15 +153,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-
-        jDesktopPane1.removeAll();
-        CrearDietaGUI dietaGUI = new CrearDietaGUI(jDesktopPane1.getSize());
-        jDesktopPane1.add(dietaGUI);
-        dietaGUI.setVisible(true);
-
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
-
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
 
         int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que "
@@ -167,34 +166,50 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+
+        jDesktopPane1.removeAll();
+        NuevoPaciente np = new NuevoPaciente();
+        jDesktopPane1.add(np);
+        np.setVisible(true);
+
+
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+
+        jDesktopPane1.removeAll();
+        BuscaryModificarPaciente bp = new BuscaryModificarPaciente();
+        jDesktopPane1.add(bp);
+        bp.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
 
         jDesktopPane1.removeAll();
         IndicacionesGUI indicacionGUI = new IndicacionesGUI(jDesktopPane1.getSize());
         jDesktopPane1.add(indicacionGUI);
         indicacionGUI.setVisible(true);
-
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-        
-        jDesktopPane1.removeAll();
-       NuevoPaciente np= new NuevoPaciente ();
-       jDesktopPane1.add(np);
-        np.setVisible(true);
-        
-        
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-        
         jDesktopPane1.removeAll();
-        BuscaryModificarPaciente bp=new BuscaryModificarPaciente();
-        jDesktopPane1.add(bp);
-        bp.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+        CrearDietaGUI dietaGUI = new CrearDietaGUI(jDesktopPane1.getSize());
+        jDesktopPane1.add(dietaGUI);
+        dietaGUI.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+
+        jDesktopPane1.removeAll();
+        ModificarDietaGUI modDietaVentana = new ModificarDietaGUI(jDesktopPane1.getSize());
+        jDesktopPane1.add(modDietaVentana);
+        modDietaVentana.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -207,6 +222,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

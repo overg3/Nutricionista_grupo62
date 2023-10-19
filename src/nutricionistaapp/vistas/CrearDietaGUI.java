@@ -1,5 +1,6 @@
 package nutricionistaapp.vistas;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -25,6 +26,7 @@ public class CrearDietaGUI extends javax.swing.JInternalFrame {
         centrarVentana(size);
         jDateChooser1.setMinSelectableDate(new Date());
         jDateChooser1.setDate(new Date());
+
     }
 
     public Profesional getDoctor() {
@@ -104,7 +106,7 @@ public class CrearDietaGUI extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Ingrese el nombre de la dieta:");
 
-        jbSelectPaciente.setText("Seleccionar paciente");
+        jbSelectPaciente.setText("Asignar Paciente");
         jbSelectPaciente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jbSelectPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,7 +114,7 @@ public class CrearDietaGUI extends javax.swing.JInternalFrame {
             }
         });
 
-        jbSelectDoctor.setText("Seleccionar Doctor/a");
+        jbSelectDoctor.setText("Asignar Doctor/a");
         jbSelectDoctor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbSelectDoctorActionPerformed(evt);
