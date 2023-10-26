@@ -235,6 +235,7 @@ public class PacienteData {
                 paciente.setAltura(rs.getDouble("altura"));
                 paciente.setPesoDeseado(rs.getDouble("pesoDeseado"));
                 paciente.setEstadoPaciente(rs.getBoolean("estadoPaciente"));
+                paciente.setFechaNac(rs.getDate("fechaNac").toLocalDate());
 
                 System.out.println("Paciente encontrado");
             } else {

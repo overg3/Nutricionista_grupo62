@@ -23,7 +23,7 @@ public class Paciente {
     public Paciente() {
     }
 
-    public Paciente(int idPaciente, String apellido, String nombre, String dni, String domicilio, String telefono, String email, Genero genero, LocalDate fechaNac, double pesoActual, double altura, double imc, double pesoDeseado, boolean estadoPaciente) {
+    public Paciente(int idPaciente, String apellido, String nombre, String dni, String domicilio, String telefono, String email, Genero genero, LocalDate fechaNac, double pesoActual, double altura, double pesoDeseado, boolean estadoPaciente) {
         this.idPaciente = idPaciente;
         this.apellido = apellido;
         this.nombre = nombre;
@@ -40,7 +40,7 @@ public class Paciente {
         this.estadoPaciente = estadoPaciente;
     }
 
-    public Paciente(String apellido, String nombre, String dni, String domicilio, String telefono, String email, Genero genero, LocalDate fechaNac, double pesoActual, double altura, double imc, double pesoDeseado, boolean estadoPaciente) {
+    public Paciente(String apellido, String nombre, String dni, String domicilio, String telefono, String email, Genero genero, LocalDate fechaNac, double pesoActual, double altura, double pesoDeseado, boolean estadoPaciente) {
         this.apellido = apellido;
         this.nombre = nombre;
         this.dni = dni;

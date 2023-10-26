@@ -23,7 +23,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
@@ -72,16 +71,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setText("Buscar/Modificar paciente");
+        jMenuItem3.setText("Buscar/Modificar/Bajar Paciente");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
             }
         });
         jMenu1.add(jMenuItem3);
-
-        jMenuItem4.setText("Baja de paciente");
-        jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
 
@@ -170,7 +166,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         jDesktopPane1.removeAll();
-        NuevoPaciente np = new NuevoPaciente();
+        NuevoPaciente np = new NuevoPaciente(jDesktopPane1.getSize());
         jDesktopPane1.add(np);
         np.setVisible(true);
 
@@ -181,7 +177,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         jDesktopPane1.removeAll();
-        BuscaryModificarPaciente bp = new BuscaryModificarPaciente();
+        BuscaryModificarPaciente bp = new BuscaryModificarPaciente(jDesktopPane1.getSize());
         jDesktopPane1.add(bp);
         bp.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
@@ -225,7 +221,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
