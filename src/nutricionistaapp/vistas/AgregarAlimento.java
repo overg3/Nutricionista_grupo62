@@ -5,6 +5,7 @@
  */
 package nutricionistaapp.vistas;
 
+import java.awt.Dimension;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import nutricionistaapp.accesoDatos.ComidaData;
@@ -20,8 +21,9 @@ public class AgregarAlimento extends javax.swing.JInternalFrame {
     /**
      * Creates new form AgregarAlimento
      */
-    public AgregarAlimento() {
+    public AgregarAlimento(Dimension size) {
         initComponents();
+        centrarVentana(size);
         SetCB();
 
     }
@@ -215,6 +217,13 @@ public class AgregarAlimento extends javax.swing.JInternalFrame {
             model.addElement(valor);
         }
         jCbcomida.setModel(model);
+    }
+    
+    private void centrarVentana(Dimension size) {
+        Dimension internalFrameSize = this.getSize();
+
+        setLocation((size.width - internalFrameSize.width) / 2,
+                (size.height - internalFrameSize.height) / 2);
     }
 
 }

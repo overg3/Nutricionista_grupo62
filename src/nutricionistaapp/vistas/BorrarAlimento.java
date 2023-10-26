@@ -5,12 +5,11 @@
  */
 package nutricionistaapp.vistas;
 
+import java.awt.Dimension;
 import java.text.Normalizer;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import nutricionistaapp.accesoDatos.ComidaData;
 
@@ -25,8 +24,9 @@ public class BorrarAlimento extends javax.swing.JInternalFrame {
     private DefaultTableModel modeloTabla;
     private List<Comida> listarAlimentos;
 
-    public BorrarAlimento() {
+    public BorrarAlimento(Dimension size) {
         initComponents();
+        centrarVentana(size);
         nuevoModeloTabla();
     }
 
@@ -167,7 +167,7 @@ public class BorrarAlimento extends javax.swing.JInternalFrame {
             ComidaData.bajaComida(comida.getIdComida());
 
             iniciarListaAlimentos();
-            
+
         }
 
     }//GEN-LAST:event_jBbrrActionPerformed
@@ -247,5 +247,12 @@ public void nuevoModeloTabla() {
     private String quitarAcentos(String cadena) {
         String cadenaNormalizada = Normalizer.normalize(cadena, Normalizer.Form.NFD);
         return cadenaNormalizada.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+    }
+
+    private void centrarVentana(Dimension size) {
+        Dimension internalFrameSize = this.getSize();
+
+        setLocation((size.width - internalFrameSize.width) / 2,
+                (size.height - internalFrameSize.height) / 2);
     }
 }

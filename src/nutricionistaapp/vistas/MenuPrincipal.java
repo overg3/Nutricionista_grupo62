@@ -1,22 +1,37 @@
 package nutricionistaapp.vistas;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class MenuPrincipal extends javax.swing.JFrame {
+
+    private ImageIcon icono;
 
     public MenuPrincipal() {
         initComponents();
 
         configurarVentana();
+        setIcon();
+
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/nutricionistaapp/recursos/backround.jpg"));
+        Image fondoColor =  icon.getImage();
+        jDesktopPane1 = new javax.swing.JDesktopPane(){
+
+            public void paintComponent(Graphics g){
+                g.drawImage(fondoColor,0,0,null);
+            }
+
+        };
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
@@ -37,6 +52,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestor de Centro de Nutrición v1.0");
+
+        jDesktopPane1.setBackground(new java.awt.Color(242, 242, 242));
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -71,7 +88,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setText("Buscar/Modificar/Bajar Paciente");
+        jMenuItem3.setText("Buscar/Modificar/Baja paciente");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -91,7 +108,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem8);
 
-        jMenuItem12.setText("Modificar/Borrar dieta");
+        jMenuItem12.setText("Buscar/Modificar/Borrar dieta");
         jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem12ActionPerformed(evt);
@@ -138,11 +155,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         jMenu2.setText("Consulta médica");
-        jMenu2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu2ActionPerformed(evt);
-            }
-        });
 
         jMenuItem1.setText("Registro de peso");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -237,46 +249,50 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
-    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu2ActionPerformed
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+
+        jDesktopPane1.removeAll();
+        AgregarAlimento agregarComidaVentana = new AgregarAlimento(jDesktopPane1.getSize());
+        jDesktopPane1.add(agregarComidaVentana);
+        agregarComidaVentana.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+
+        jDesktopPane1.removeAll();
+        BuscarAlimento buscarAlimento = new BuscarAlimento(jDesktopPane1.getSize());
+        jDesktopPane1.add(buscarAlimento);
+        buscarAlimento.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+
+        jDesktopPane1.removeAll();
+        BorrarAlimento borrarAlimento = new BorrarAlimento(jDesktopPane1.getSize());
+        jDesktopPane1.add(borrarAlimento);
+        borrarAlimento.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+
         jDesktopPane1.removeAll();
-        RegistroPesoGUI rg = new RegistroPesoGUI();
+        RegistroPesoGUI rg = new RegistroPesoGUI(jDesktopPane1.getSize());
         jDesktopPane1.add(rg);
         rg.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+
         jDesktopPane1.removeAll();
-        AntecedentesGUI ante = new AntecedentesGUI();
+        AntecedentesGUI ante = new AntecedentesGUI(jDesktopPane1.getSize());
         jDesktopPane1.add(ante);
         ante.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem10ActionPerformed
-
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        jDesktopPane1.removeAll();
-        AgregarAlimento agr = new AgregarAlimento();
-        jDesktopPane1.add(agr);
-        agr.setVisible(true);
-
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-          jDesktopPane1.removeAll();
-       BuscarAlimento bscr = new BuscarAlimento();
-        jDesktopPane1.add(bscr);
-        bscr.setVisible(true);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
-
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        jDesktopPane1.removeAll();
-       BorrarAlimento brr = new BorrarAlimento();
-        jDesktopPane1.add(brr);
-        brr.setVisible(true);
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -309,6 +325,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setSize(screenSize.width - 100, screenSize.height - 100);
         setLocation(50, 50);
 
+    }
+
+    private void setIcon() {
+        icono = new ImageIcon(getClass().getResource("/nutricionistaapp/recursos/icono.png"));
+        setIconImage(icono.getImage());
     }
 
 }

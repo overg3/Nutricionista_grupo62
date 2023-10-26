@@ -5,8 +5,8 @@
  */
 package nutricionistaapp.vistas;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import nutricionistaapp.accesoDatos.AntecedenteData;
@@ -20,12 +20,18 @@ import nutricionistaapp.entidades.Paciente;
  */
 public class AntecedentesGUI extends javax.swing.JInternalFrame {
 
-   DefaultTableModel modelo = new DefaultTableModel();
-   
-    public AntecedentesGUI() {
+    DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int fila, int col) {
+                return false;
+            }
+        };
+
+    public AntecedentesGUI(Dimension size) {
         initComponents();
+        centrarVentana(size);
         cabeza();
-        
+
     }
 
     /**
@@ -100,6 +106,7 @@ public class AntecedentesGUI extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtableAntecedentes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtableAntecedentes.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
                 jtableAntecedentesComponentAdded(evt);
@@ -225,20 +232,22 @@ public class AntecedentesGUI extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtfIDActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-try{
-        limpiar();
-    Paciente dni = PacienteData.buscarPacienteDNI(jtfID.getText());
-    jtfNombre.setText(dni.getNombre()+" "+dni.getApellido());
-    ArrayList <Antecedente> ante = (ArrayList <Antecedente>) AntecedenteData.listarAntecedentesIDPaciente(dni.getIdPaciente());
-    for (Antecedente x : ante){
-    modelo.addRow(new Object []{x.getAntecendete()});
-    jtableAntecedentes.setModel(modelo);}
-    }catch(NumberFormatException xe){
-     JOptionPane.showMessageDialog(null, "Ingrese un valor valido");}
+        try {
+            limpiar();
+            Paciente dni = PacienteData.buscarPacienteDNI(jtfID.getText());
+            jtfNombre.setText(dni.getNombre() + " " + dni.getApellido());
+            ArrayList<Antecedente> ante = (ArrayList<Antecedente>) AntecedenteData.listarAntecedentesIDPaciente(dni.getIdPaciente());
+            for (Antecedente x : ante) {
+                modelo.addRow(new Object[]{x.getAntecendete()});
+                jtableAntecedentes.setModel(modelo);
+            }
+        } catch (NumberFormatException xe) {
+            JOptionPane.showMessageDialog(null, "Ingrese un valor valido");
+        }
     }//GEN-LAST:event_jbBuscarActionPerformed
 //ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
     private void jtableAntecedentesComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jtableAntecedentesComponentAdded
-        
+
     }//GEN-LAST:event_jtableAntecedentesComponentAdded
 
     private void jtableAntecedentesAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jtableAntecedentesAncestorAdded
@@ -246,10 +255,10 @@ try{
     }//GEN-LAST:event_jtableAntecedentesAncestorAdded
 
     private void jtfIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfIDFocusGained
-         
-         if (jtfID.getText().equals("Ingrese el D.N.I")){
-          jtfID.setText("");
-          }           
+
+        if (jtfID.getText().equals("Ingrese el D.N.I")) {
+            jtfID.setText("");
+        }
     }//GEN-LAST:event_jtfIDFocusGained
 
 
@@ -267,55 +276,27 @@ try{
     private javax.swing.JTextField jtfNombre;
     // End of variables declaration//GEN-END:variables
 
-private void cabeza (){
+    private void cabeza() {
 
-modelo.addColumn("Antecedente");
-jtableAntecedentes.setModel(modelo);
+        modelo.addColumn("Antecedente");
+        jtableAntecedentes.setModel(modelo);
 
-}
+    }
 
-public void limpiar (){
-int filas = jtableAntecedentes.getRowCount()-1;
-for (int f = filas; f>-1; f--){
-modelo.removeRow(f);
-}
-}
+    public void limpiar() {
+        int filas = jtableAntecedentes.getRowCount() - 1;
+        for (int f = filas; f > -1; f--) {
+            modelo.removeRow(f);
+        }
+    }
 
+    private void centrarVentana(Dimension size) {
+        Dimension internalFrameSize = this.getSize();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        setLocation((size.width - internalFrameSize.width) / 2,
+                (size.height - internalFrameSize.height) / 2);
+    }
+    
+    
 
 }
-

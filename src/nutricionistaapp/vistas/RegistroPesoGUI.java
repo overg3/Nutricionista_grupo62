@@ -5,25 +5,30 @@
  */
 package nutricionistaapp.vistas;
 
+import java.awt.Dimension;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import nutricionistaapp.accesoDatos.AntecedenteData;
 import nutricionistaapp.accesoDatos.PacienteData;
 import nutricionistaapp.accesoDatos.RegistroData;
-import nutricionistaapp.entidades.Antecedente;
 import nutricionistaapp.entidades.Paciente;
 import nutricionistaapp.entidades.Registro;
 
 public class RegistroPesoGUI extends javax.swing.JInternalFrame {
 
-   DefaultTableModel modelo = new DefaultTableModel();
-    public RegistroPesoGUI() {
-        initComponents();
-        cabeza(); 
-    }
+    DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int fila, int col) {
+                return false;
+            }
+        };
 
+    public RegistroPesoGUI(Dimension size) {
+        initComponents();
+        centrarVentana(size);
+        cabeza();
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -81,6 +86,7 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtableRegistro.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jtableRegistro);
 
         jButton2.setText("Limpiar");
@@ -221,31 +227,31 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      limpiar();
-     try{
-      int dni = Integer.parseInt(jtfdni.getText());
-      Paciente pacientx = PacienteData.buscarPacienteDNI(jtfdni.getText());
-      jtpaciente.setText( pacientx.getNombre()+ "  " + pacientx.getApellido());
-      
-      ArrayList <Registro> reg = (ArrayList <Registro>) RegistroData.listaRegistrosPorDni(pacientx.getDni());
-          for (Registro x : reg){
-          modelo.addRow(new Object []{x.getIdRegistro(),x.getPaciente(),x.getPeso(),x.getFecha()});
-          jtableRegistro.setModel(modelo);}
-          jButton4.setEnabled(true);
-     }catch(NumberFormatException xe){
-     JOptionPane.showMessageDialog(null, "Ingrese un valor valido");
-      jButton4.setEnabled(false);}
-    }//GEN-LAST:event_jButton1ActionPerformed
-    
+        limpiar();
+        try {
+            int dni = Integer.parseInt(jtfdni.getText());
+            Paciente pacientx = PacienteData.buscarPacienteDNI(jtfdni.getText());
+            jtpaciente.setText(pacientx.getNombre() + "  " + pacientx.getApellido());
 
-    
-    
+            ArrayList<Registro> reg = (ArrayList<Registro>) RegistroData.listaRegistrosPorDni(pacientx.getDni());
+            for (Registro x : reg) {
+                modelo.addRow(new Object[]{x.getIdRegistro(), x.getPaciente(), x.getPeso(), x.getFecha()});
+                jtableRegistro.setModel(modelo);
+            }
+            jButton4.setEnabled(true);
+        } catch (NumberFormatException xe) {
+            JOptionPane.showMessageDialog(null, "Ingrese un valor valido");
+            jButton4.setEnabled(false);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+
     private void jtpacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtpacienteActionPerformed
 //ssssssssssssssssssssssssssssssssssssss//     
     }//GEN-LAST:event_jtpacienteActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       
+
         limpiar();
         jtfdni.setText("");
         jtpaciente.setText("");
@@ -261,27 +267,29 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtfPesoActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        try{
-    String pesox = jtfPeso.getText();
-    double nuevoReg = Double.parseDouble(pesox);
-    Paciente paciente = PacienteData.buscarPacienteDNI(jtfdni.getText());
-    LocalDate fecha = LocalDate.now();
-    Registro registro = new Registro(paciente, nuevoReg, fecha,true);
-    RegistroData.agregarRegistro(registro);
-    limpiar();
-    ArrayList <Registro> reg = (ArrayList <Registro>) RegistroData.listaRegistrosPorDni(paciente.getDni());
-          for (Registro x : reg){
-          modelo.addRow(new Object []{x.getIdRegistro(),x.getPaciente(),x.getPeso(),x.getFecha()});
-          jtableRegistro.setModel(modelo); }
-        }catch(NumberFormatException xe){
-         JOptionPane.showMessageDialog(null, "Ingrese un valor valido");}
-        
+        try {
+            String pesox = jtfPeso.getText();
+            double nuevoReg = Double.parseDouble(pesox);
+            Paciente paciente = PacienteData.buscarPacienteDNI(jtfdni.getText());
+            LocalDate fecha = LocalDate.now();
+            Registro registro = new Registro(paciente, nuevoReg, fecha, true);
+            RegistroData.agregarRegistro(registro);
+            limpiar();
+            ArrayList<Registro> reg = (ArrayList<Registro>) RegistroData.listaRegistrosPorDni(paciente.getDni());
+            for (Registro x : reg) {
+                modelo.addRow(new Object[]{x.getIdRegistro(), x.getPaciente(), x.getPeso(), x.getFecha()});
+                jtableRegistro.setModel(modelo);
+            }
+        } catch (NumberFormatException xe) {
+            JOptionPane.showMessageDialog(null, "Ingrese un valor valido");
+        }
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jtfdniFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfdniFocusGained
-        if (jtfdni.getText().equals("Ingrese el  D.N.I")){
-          jtfdni.setText("");
-          }    
+        if (jtfdni.getText().equals("Ingrese el  D.N.I")) {
+            jtfdni.setText("");
+        }
     }//GEN-LAST:event_jtfdniFocusGained
 
 
@@ -302,47 +310,35 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtpaciente;
     // End of variables declaration//GEN-END:variables
 
-
-private void cabeza (){
+    private void cabeza() {
 //idRegistro	
 //idPaciente
 //peso
 //fecha
 //estado
-modelo.addColumn("IdRegistro");
-modelo.addColumn("IdPaciente");
-modelo.addColumn("Peso");
-modelo.addColumn("Fecha");
-jtableRegistro.setModel(modelo);
+        modelo.addColumn("IdRegistro");
+        modelo.addColumn("IdPaciente");
+        modelo.addColumn("Peso");
+        modelo.addColumn("Fecha");
+        jtableRegistro.setModel(modelo);
 
-}
+    }
 //PROBAR PROBAR
 /*11111*/
-public void limpiar (){
+    public void limpiar() {
 
-jtfPeso.setText("Peso");
-int filas = jtableRegistro.getRowCount()-1;
-for (int f = filas; f>-1; f--){
-modelo.removeRow(f);
-}
-}
+        jtfPeso.setText("Peso");
+        int filas = jtableRegistro.getRowCount() - 1;
+        for (int f = filas; f > -1; f--) {
+            modelo.removeRow(f);
+        }
+    }
+    
+    private void centrarVentana(Dimension size) {
+        Dimension internalFrameSize = this.getSize();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        setLocation((size.width - internalFrameSize.width) / 2,
+                (size.height - internalFrameSize.height) / 2);
+    }
 
 }

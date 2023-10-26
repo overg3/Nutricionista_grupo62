@@ -1,6 +1,5 @@
 package nutricionistaapp.vistas;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.time.Instant;
 import java.time.LocalDate;

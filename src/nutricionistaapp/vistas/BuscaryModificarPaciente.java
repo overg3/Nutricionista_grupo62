@@ -6,7 +6,6 @@
 package nutricionistaapp.vistas;
 
 import java.awt.Dimension;
-import java.awt.HeadlessException;
 import java.text.Normalizer;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -74,7 +73,7 @@ public class BuscaryModificarPaciente extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Buscar / Modificar Paciente");
+        setTitle("Buscar / Modificar / Dar de baja Paciente");
 
         jButtonSalir.setBackground(new java.awt.Color(255, 0, 51));
         jButtonSalir.setText("Salir");
@@ -184,6 +183,7 @@ public class BuscaryModificarPaciente extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableresultbusqueda.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableresultbusqueda.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
