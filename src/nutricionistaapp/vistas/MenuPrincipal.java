@@ -112,12 +112,27 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu3.setText("Alimentos");
 
         jMenuItem5.setText("Agregar alimento");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem5);
 
         jMenuItem6.setText("Buscar/Modificar alimento");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem6);
 
         jMenuItem7.setText("Borrar Alimento");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem7);
 
         jMenuBar1.add(jMenu3);
@@ -227,19 +242,41 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-       jDesktopPane1.removeAll();
-       RegistroPesoGUI rg = new RegistroPesoGUI ();
-       jDesktopPane1.add(rg);
-       rg.setVisible(true);
-       
+        jDesktopPane1.removeAll();
+        RegistroPesoGUI rg = new RegistroPesoGUI();
+        jDesktopPane1.add(rg);
+        rg.setVisible(true);
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-       jDesktopPane1.removeAll();
-       AntecedentesGUI ante = new AntecedentesGUI ();
-       jDesktopPane1.add(ante);
-       ante.setVisible(true);
+        jDesktopPane1.removeAll();
+        AntecedentesGUI ante = new AntecedentesGUI();
+        jDesktopPane1.add(ante);
+        ante.setVisible(true);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        jDesktopPane1.removeAll();
+        AgregarAlimento agr = new AgregarAlimento();
+        jDesktopPane1.add(agr);
+        agr.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+          jDesktopPane1.removeAll();
+       BuscarAlimento bscr = new BuscarAlimento();
+        jDesktopPane1.add(bscr);
+        bscr.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        jDesktopPane1.removeAll();
+       BorrarAlimento brr = new BorrarAlimento();
+        jDesktopPane1.add(brr);
+        brr.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
