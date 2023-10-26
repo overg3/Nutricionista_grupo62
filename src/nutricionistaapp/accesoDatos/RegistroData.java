@@ -94,4 +94,33 @@ public class RegistroData {
         return listaRegistros;
     }
 
+    public static List<Registro> listaRegistrosPorDni(String dni) {
+
+        List<Registro> listaRegistros = new ArrayList<>();
+
+        String sql = "SELECT registropeso.* FROM registropeso JOIN paciente ON registropeso.idPaciente = paciente.idPaciente " +
+                           "WHERE paciente.dni =?  AND registropeso.estado = 1";
+
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql);
+         
+                ){
+                ps.setString(1, dni);
+                ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Registro registro = new Registro();
+                registro.setIdRegistro(rs.getInt("idRegistro"));
+                registro.setPaciente(PacienteData.buscarPacienteID(rs.getInt("idPaciente")));
+                registro.setPeso(rs.getDouble("peso"));
+                registro.setFecha(rs.getDate("fecha").toLocalDate());
+                registro.setEstado(rs.getBoolean("estado"));
+
+                listaRegistros.add(registro);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            System.err.println("Error obtener la lista de registros: " + ex.getMessage());
+        }
+        return listaRegistros;
+    }
 }
