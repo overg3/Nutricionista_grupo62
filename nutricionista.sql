@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-10-2023 a las 23:55:56
+-- Tiempo de generación: 27-10-2023 a las 19:51:12
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -41,11 +41,31 @@ CREATE TABLE `antecedentes` (
 --
 
 INSERT INTO `antecedentes` (`idAntecedente`, `idPaciente`, `antecedente`, `estado`) VALUES
-(1, 6, 'DIABETES', 1),
-(2, 7, 'HIPERTENSION', 1),
-(3, 8, 'CELIACO', 1),
-(4, 9, 'RENAL', 1),
-(5, 10, 'CANCER', 1);
+(6, 15, 'DIABETES', 1),
+(7, 16, 'HIPERTENSION', 1),
+(8, 17, 'CELIAHCO', 1),
+(9, 18, 'RENAL', 1),
+(10, 19, 'CANCER', 1),
+(11, 20, 'ENFERMEDADES_RESPIRATORIAS', 1),
+(12, 21, 'BULIMIA', 1),
+(13, 22, 'ANOREXIA', 1),
+(14, 23, 'ALZHEIMER', 1),
+(15, 28, 'PARKINSON', 1),
+(16, 29, 'ALERGIA', 1),
+(17, 30, 'COLITIS', 1),
+(18, 31, 'HEMORROIDES', 1),
+(19, 32, 'OSTEOPOROSIS', 1),
+(20, 33, 'ACV', 1),
+(21, 34, 'ACIDEZ', 1),
+(22, 36, 'ANEMIA', 1),
+(23, 15, 'OBESIDAD', 1),
+(24, 16, 'ULCERAS_PEPTICAS', 1),
+(25, 17, 'DESNUTRICION', 1),
+(26, 18, 'HIPERTIROIDISMO', 1),
+(27, 19, 'HIPOTIROIDISMO', 1),
+(28, 20, 'ESTRES', 1),
+(29, 21, 'INSOMNIO', 1),
+(30, 22, 'EPILEPSIA', 1);
 
 -- --------------------------------------------------------
 
@@ -66,8 +86,8 @@ CREATE TABLE `comidas` (
 --
 
 INSERT INTO `comidas` (`idComida`, `nombre`, `tipo`, `calorias`, `estadoComida`) VALUES
-(1, 'Manzana', 'FRUTA', 50, 0),
-(2, 'Milanesa de pollo', 'CARNES_ROJAS', 250, 1),
+(1, 'Manzana', 'FRUTA', 52, 1),
+(2, 'Milanesa de pollo', 'CARNES_ROJAS', 249, 1),
 (3, 'Brócoli', 'VERDURA', 55, 1),
 (4, 'Yogur', 'LACTEOS', 120, 1),
 (5, 'Filete de res', 'CARNES_ROJAS', 250, 1),
@@ -111,19 +131,23 @@ CREATE TABLE `dieta` (
 --
 
 INSERT INTO `dieta` (`idDieta`, `nombre`, `idPaciente`, `idProfesional`, `fechaInicio`, `fechaFinal`, `pesoInicial`, `pesoFinal`, `estadoDieta`) VALUES
-(2, 'Dieta de la vaca loca', 8, 4, '2023-10-06', '2023-12-12', 65.2, 75.1, 1),
-(9, 'Dieta Atkins', 6, 1, '2023-01-10', '2023-02-10', 150.5, 145.2, 1),
-(10, 'Dieta Mediterránea', 7, 2, '2023-02-15', '2023-03-15', 160.3, 155.7, 1),
-(11, 'Dieta DASH', 8, 3, '2023-03-20', '2023-04-20', 140.2, 136.8, 1),
-(12, 'Dieta Paleo', 9, 4, '2023-04-25', '2023-05-25', 175.1, 170.3, 1),
-(13, 'Dieta Vegana', 10, 5, '2023-05-30', '2023-06-30', 135.8, 130.4, 1),
-(15, 'Dieta Atkins', 6, 1, '2023-01-10', '2023-02-10', 150.5, 145.2, 1),
-(16, 'Dieta Mediterránea', 7, 2, '2023-02-15', '2023-03-15', 160.3, 155.7, 1),
-(17, 'Dieta DASH', 8, 3, '2023-03-20', '2023-04-20', 140.2, 136.8, 1),
-(18, 'Dieta Paleo', 9, 4, '2023-04-25', '2023-05-25', 175.1, 170.3, 1),
-(19, 'Dieta Vegana', 10, 5, '2023-05-30', '2023-06-30', 135.8, 130.4, 1),
-(20, 'Dieta Cetogénica', 10, 6, '2023-07-05', '2023-08-05', 155.7, 150.1, 1),
-(21, 'Dieta Weight Watchers', 12, 1, '2023-08-10', '2023-09-10', 145.9, 141.6, 1);
+(22, 'Dieta Mediterránea', 15, 1, '2023-01-15', '2023-02-15', 90, 85, 1),
+(23, 'Dieta Paleo', 16, 2, '2023-03-01', '2023-04-01', 80, 75.5, 1),
+(24, 'Dieta Vegana', 17, 3, '2023-02-10', '2023-03-10', 70, 68.5, 1),
+(25, 'Dieta Cetogénica', 18, 4, '2023-04-15', '2023-05-15', 100, 95, 1),
+(26, 'Dieta Atkins', 19, 5, '2023-03-20', '2023-04-20', 75, 72, 1),
+(27, 'Dieta DASH', 20, 6, '2023-05-01', '2023-06-01', 88, 85, 1),
+(28, 'Dieta Flexitariana', 21, 1, '2023-02-15', '2023-03-15', 65, 63.5, 1),
+(29, 'Dieta de Ayuno Intermitente', 22, 2, '2023-03-10', '2023-04-10', 70, 68, 1),
+(30, 'Dieta Sin Gluten', 23, 3, '2023-04-01', '2023-05-01', 72, 70, 1),
+(31, 'Dieta de Mantenimiento', 28, 4, '2023-02-20', '2023-03-20', 75, 75, 1),
+(32, 'Dieta Hipocalórica', 29, 5, '2023-05-15', '2023-06-15', 85, 80, 1),
+(33, 'Dieta Vegetariana', 30, 6, '2023-04-05', '2023-05-05', 68, 65.5, 1),
+(34, 'Dieta de Entrenamiento', 31, 1, '2023-01-10', '2023-02-10', 90, 88, 1),
+(35, 'Dieta para Hipertensos', 32, 2, '2023-03-05', '2023-04-05', 78, 76, 1),
+(36, 'Dieta para Diabéticos', 33, 3, '2023-04-10', '2023-05-10', 82, 80.5, 1),
+(37, 'Dieta de Control de Peso', 34, 4, '2023-02-25', '2023-03-25', 85, 82.5, 1),
+(38, 'Dieta de Bienestar', 36, 5, '2023-02-05', '2023-03-05', 78, 75, 1);
 
 -- --------------------------------------------------------
 
@@ -145,9 +169,53 @@ CREATE TABLE `indicacion` (
 --
 
 INSERT INTO `indicacion` (`idIndic`, `idComida`, `idDieta`, `horario`, `porcion`, `estado`) VALUES
-(1, 1, 2, 'REFRIGERIO_NOCTURNO', 150, 1),
-(2, 1, 2, 'ALMUERZO', 200, 0),
-(3, 1, 2, 'ALMUERZO', 90, 1);
+(4, 1, 22, 'DESAYUNO', 1, 1),
+(5, 5, 22, 'ALMUERZO', 1, 1),
+(6, 9, 22, 'MERIENDA', 1, 1),
+(7, 13, 22, 'CENA', 1, 1),
+(8, 17, 22, 'COLACION', 1, 1),
+(9, 2, 23, 'DESAYUNO', 1, 1),
+(10, 6, 23, 'ALMUERZO', 1, 1),
+(11, 10, 23, 'MERIENDA', 1, 1),
+(12, 14, 23, 'CENA', 1, 1),
+(13, 18, 23, 'COLACION', 1, 1),
+(14, 3, 24, 'DESAYUNO', 1, 1),
+(15, 7, 24, 'ALMUERZO', 1, 1),
+(16, 11, 24, 'MERIENDA', 1, 1),
+(17, 15, 24, 'CENA', 1, 1),
+(18, 19, 24, 'COLACION', 1, 1),
+(19, 4, 25, 'DESAYUNO', 1, 1),
+(20, 8, 25, 'ALMUERZO', 1, 1),
+(21, 12, 25, 'MERIENDA', 1, 1),
+(22, 16, 25, 'CENA', 1, 1),
+(23, 20, 25, 'COLACION', 1, 1),
+(24, 1, 26, 'DESAYUNO', 1, 1),
+(25, 5, 26, 'ALMUERZO', 1, 1),
+(26, 9, 26, 'MERIENDA', 1, 1),
+(27, 13, 26, 'CENA', 1, 1),
+(28, 2, 27, 'DESAYUNO', 1, 1),
+(29, 6, 27, 'ALMUERZO', 1, 1),
+(30, 10, 27, 'MERIENDA', 1, 1),
+(31, 14, 27, 'CENA', 1, 1),
+(32, 3, 28, 'DESAYUNO', 1, 1),
+(33, 7, 28, 'ALMUERZO', 1, 1),
+(34, 11, 28, 'MERIENDA', 1, 1),
+(35, 15, 28, 'CENA', 1, 1),
+(36, 4, 29, 'DESAYUNO', 1, 1),
+(37, 8, 29, 'ALMUERZO', 1, 1),
+(38, 12, 29, 'MERIENDA', 1, 1),
+(39, 16, 29, 'CENA', 1, 1),
+(40, 1, 30, 'DESAYUNO', 1, 1),
+(41, 5, 30, 'ALMUERZO', 1, 1),
+(42, 9, 30, 'MERIENDA', 1, 1),
+(43, 13, 30, 'CENA', 1, 1),
+(44, 2, 31, 'DESAYUNO', 1, 1),
+(45, 6, 31, 'ALMUERZO', 1, 1),
+(46, 10, 31, 'MERIENDA', 1, 1),
+(47, 14, 31, 'CENA', 1, 1),
+(48, 4, 37, 'MERIENDA', 50, 1),
+(49, 4, 37, 'DESAYUNO', 4, 0),
+(50, 21, 37, 'DESAYUNO', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -176,14 +244,6 @@ CREATE TABLE `paciente` (
 --
 
 INSERT INTO `paciente` (`idPaciente`, `apellido`, `nombre`, `dni`, `domicilio`, `telefono`, `genero`, `email`, `fechaNac`, `pesoActual`, `altura`, `pesoDeseado`, `estadoPaciente`) VALUES
-(6, 'Gómez', 'María', '12345678', 'Calle Principal 123', '123456789', 'Femenino', 'maria@gmail.com', '1990-05-15', 80.3, 0, 60, 1),
-(7, 'Pérez', 'Juan', '38765432', 'Avenida Secundaria 456', '987654321', 'Masculino', 'juan@gmail.com', '1985-08-20', 85, 0, 75, 1),
-(8, 'López', 'Ana', '45678901', 'Plaza Central 789', '789012345', 'Femenino', 'ana@gmail.com', '1995-03-10', 65.2, 0, 55, 1),
-(9, 'Rodríguez', 'Luis', '23456789', 'Calle Secundaria 789', '456789012', 'Masculino', 'luis@gmail.com', '1992-11-25', 78.3, 0, 70, 1),
-(10, 'Fernández', 'Carlos', '34567890', 'Avenida Principal 567', '567890123', 'MASCULINO', 'carlos@gmail.com', '1988-07-02', 90.7, 0, 80, 1),
-(12, 'Pepperino', 'Pepe', '33833333', 'Av. ASasd 464', '464446465', 'OTRO', 'prueba@gmail.com', '1988-02-01', 90.5, 0, 75.2, 1),
-(13, 'Pepperino', 'Pepe2', '33833331', 'Av. Asd 734', '46444444', 'MASCULINO', 'asd@asd.com', '1988-09-09', 90.5, 0, 75.2, 1),
-(14, 'Prueba', 'NombrePrueba', '31312321', 'Av. ASasd 464', '464446465', 'MASCULINO', 'prueba@gmail.com', '1988-08-08', 200, 0, 110, 1),
 (15, 'Luthor', 'Lex', '123456789', '123 Main St', '5551234567', 'MASCULINO', 'lex@example.com', '1990-03-15', 180.5, 185, 175, 1),
 (16, 'Parker', 'Peter', '987654321', '456 Elm St', '5552345678', 'MASCULINO', 'peter@example.com', '1985-07-10', 160, 175, 170, 1),
 (17, 'Quinn', 'Harley', '654321987', '789 Oak St', '5553456789', 'FEMENINO', 'harley@example.com', '1993-02-20', 135.5, 160, 130, 1),
@@ -192,7 +252,16 @@ INSERT INTO `paciente` (`idPaciente`, `apellido`, `nombre`, `dni`, `domicilio`, 
 (20, 'Osborn', 'Norman', '345678912', '345 Villain Ave', '5556789012', 'MASCULINO', 'norman@example.com', '1975-08-05', 175, 180, 170, 1),
 (21, 'Munroe', 'Ororo', '456789123', '456 X-Mansion Rd', '5557890123', 'FEMENINO', 'ororo@example.com', '1984-01-18', 140, 165, 135, 1),
 (22, 'Fisk', 'Wilson', '567891234', '567 Crime St', '5558901234', 'MASCULINO', 'wilson@example.com', '1970-11-20', 200, 185, 195, 1),
-(23, 'Prince', 'Diana', '678912345', '678 Amazon Ave', '5559012345', 'FEMENINO', 'diana@example.com', '1982-09-12', 140, 170, 130, 1);
+(23, 'Prince', 'Diana', '678912345', '678 Amazon Ave', '5559012345', 'FEMENINO', 'diana@example.com', '1982-09-12', 140, 170, 130, 1),
+(28, 'Stark', 'Tony', '111111111', 'Malibu', '555-1234', 'MASCULINO', 'tony@stark.com', '1970-05-29', 185.5, 185, 200, 1),
+(29, 'Romanoff', 'Natasha', '333333333', 'Nueva York', '555-9876', 'FEMENINO', 'natasha@shield.com', '1984-06-07', 58, 170, 60, 1),
+(30, 'Odinson', 'Thor', '444444444', 'Asgard', '555-4321', 'MASCULINO', 'thor@asgard.com', '1980-11-11', 95.7, 190, 100, 1),
+(31, 'Rogers', 'Steve', '555555555', 'Nueva York', '555-8765', 'MASCULINO', 'steve@avengers.com', '1918-07-04', 92, 188, 95, 1),
+(32, 'Banner', 'Bruce', '666666666', 'Nueva York', '555-2345', 'MASCULINO', 'bruce@hulk.com', '1969-12-18', 76.3, 175, 85, 1),
+(33, 'Maximoff', 'Wanda', '777777777', 'Sokovia', '555-6543', 'FEMENINO', 'wanda@scarletwitch.com', '1989-05-10', 55.2, 170, 58, 1),
+(34, 'Wilson', 'Sam', '888888888', 'Washington, D.C.', '555-7890', 'MASCULINO', 'sam@falcon.com', '1980-08-19', 79.1, 183, 85, 1),
+(35, 'T Challa', 'Black Panther', '999999999', 'Wakanda', '555-8765', 'MASCULINO', 'tchalla@wakanda.com', '1978-02-16', 92.5, 183, 90, 1),
+(36, 'Potts', 'Pepper', '101010101', 'Malibu', '555-5678', 'FEMENINO', 'pepper@stark.com', '1979-04-15', 60.3, 170, 65, 1);
 
 -- --------------------------------------------------------
 
@@ -243,25 +312,30 @@ CREATE TABLE `registropeso` (
 --
 
 INSERT INTO `registropeso` (`idRegistro`, `idPaciente`, `peso`, `fecha`, `estado`) VALUES
-(1, 12, 200, '2023-10-06', 1),
-(2, 12, 180.5, '2023-10-06', 1),
-(3, 12, 180, '2023-10-06', 0),
-(8, 6, 90.5, '2023-01-01', 1),
-(9, 7, 65.7, '2023-01-01', 1),
-(10, 8, 77.1, '2023-01-01', 1),
-(11, 9, 59.3, '2023-01-01', 1),
-(12, 10, 70.8, '2023-01-01', 1),
-(14, 6, 90.5, '2023-01-01', 1),
-(15, 7, 65.7, '2023-01-01', 1),
-(16, 8, 77.1, '2023-01-01', 1),
-(17, 9, 59.3, '2023-01-01', 1),
-(18, 10, 70.8, '2023-01-01', 1),
-(19, 12, 64.5, '2023-01-01', 1),
-(20, 13, 70.2, '2023-01-01', 1),
-(21, 14, 83.7, '2023-01-01', 1),
-(22, 15, 66.4, '2023-01-01', 1),
-(23, 16, 75.8, '2023-01-01', 1),
-(24, 17, 81.2, '2023-01-01', 1);
+(25, 15, 80.5, '2023-01-15', 1),
+(26, 16, 75, '2023-02-01', 1),
+(27, 17, 68.5, '2023-02-15', 1),
+(28, 18, 90, '2023-03-01', 1),
+(29, 19, 72.5, '2023-03-15', 1),
+(30, 20, 85, '2023-04-01', 1),
+(31, 21, 63, '2023-04-15', 1),
+(32, 22, 70, '2023-05-01', 1),
+(33, 23, 75.5, '2023-05-15', 1),
+(34, 28, 85.5, '2023-06-01', 1),
+(35, 29, 79, '2023-06-15', 1),
+(36, 30, 68, '2023-07-01', 1),
+(37, 31, 74.5, '2023-07-15', 1),
+(38, 32, 88, '2023-08-01', 1),
+(39, 33, 76.5, '2023-08-15', 1),
+(40, 34, 90.5, '2023-09-01', 1),
+(41, 36, 82, '2023-09-15', 1),
+(42, 15, 150, '2023-10-26', 1),
+(43, 15, 151, '2023-10-27', 1),
+(44, 15, 153, '2023-10-27', 1),
+(45, 15, 154, '2023-10-27', 1),
+(46, 16, 74, '2023-10-27', 1),
+(47, 16, 73, '2023-10-27', 1),
+(48, 15, 155, '2023-10-27', 1);
 
 --
 -- Índices para tablas volcadas
@@ -327,31 +401,31 @@ ALTER TABLE `registropeso`
 -- AUTO_INCREMENT de la tabla `antecedentes`
 --
 ALTER TABLE `antecedentes`
-  MODIFY `idAntecedente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idAntecedente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `comidas`
 --
 ALTER TABLE `comidas`
-  MODIFY `idComida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idComida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `dieta`
 --
 ALTER TABLE `dieta`
-  MODIFY `idDieta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idDieta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT de la tabla `indicacion`
 --
 ALTER TABLE `indicacion`
-  MODIFY `idIndic` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idIndic` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de la tabla `paciente`
 --
 ALTER TABLE `paciente`
-  MODIFY `idPaciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `idPaciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `profesional`
@@ -363,7 +437,7 @@ ALTER TABLE `profesional`
 -- AUTO_INCREMENT de la tabla `registropeso`
 --
 ALTER TABLE `registropeso`
-  MODIFY `idRegistro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `idRegistro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- Restricciones para tablas volcadas

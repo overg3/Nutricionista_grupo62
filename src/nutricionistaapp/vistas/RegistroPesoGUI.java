@@ -5,7 +5,9 @@
  */
 package nutricionistaapp.vistas;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -17,12 +19,12 @@ import nutricionistaapp.entidades.Registro;
 
 public class RegistroPesoGUI extends javax.swing.JInternalFrame {
 
-    DefaultTableModel modelo = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int fila, int col) {
-                return false;
-            }
-        };
+    DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int fila, int col) {
+            return false;
+        }
+    };
 
     public RegistroPesoGUI(Dimension size) {
         initComponents();
@@ -49,6 +51,7 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
 
+        setClosable(true);
         setTitle("Registro de Peso");
 
         jPanel1.setForeground(new java.awt.Color(153, 153, 255));
@@ -60,15 +63,12 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
             }
         });
 
+        jtfdni.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
+        jtfdni.setForeground(new java.awt.Color(153, 153, 153));
         jtfdni.setText("Ingrese el  D.N.I");
         jtfdni.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jtfdniFocusGained(evt);
-            }
-        });
-        jtfdni.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfdniActionPerformed(evt);
             }
         });
 
@@ -89,7 +89,7 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
         jtableRegistro.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jtableRegistro);
 
-        jButton2.setText("Limpiar");
+        jButton2.setText("Limpiar datos");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -103,6 +103,7 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
             }
         });
 
+        jtpaciente.setEditable(false);
         jtpaciente.setText(" ");
         jtpaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,10 +116,12 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Agregar Nuevo Registro:");
 
+        jtfPeso.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
+        jtfPeso.setForeground(new java.awt.Color(153, 153, 153));
         jtfPeso.setText("Peso");
-        jtfPeso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfPesoActionPerformed(evt);
+        jtfPeso.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfPesoFocusGained(evt);
             }
         });
 
@@ -159,22 +162,19 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jtfPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(74, 74, 74)
-                                        .addComponent(jButton2)))
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(jButton4)))))))
+                                .addComponent(jtfPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)
+                                .addGap(30, 30, 30)
+                                .addComponent(jButton4))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -182,12 +182,10 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jtfdni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(9, 9, 9)
+                    .addComponent(jtfdni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jtpaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -203,7 +201,7 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -227,6 +225,7 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
         limpiar();
         try {
             int dni = Integer.parseInt(jtfdni.getText());
@@ -238,9 +237,11 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
                 modelo.addRow(new Object[]{x.getIdRegistro(), x.getPaciente(), x.getPeso(), x.getFecha()});
                 jtableRegistro.setModel(modelo);
             }
+            
             jButton4.setEnabled(true);
+            
         } catch (NumberFormatException xe) {
-            JOptionPane.showMessageDialog(null, "Ingrese un valor valido");
+            JOptionPane.showMessageDialog(null, "Ingrese un valor válido");
             jButton4.setEnabled(false);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -253,21 +254,15 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         limpiar();
-        jtfdni.setText("");
         jtpaciente.setText("");
+        formatearTexto();
         limpiar();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jtfdniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfdniActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfdniActionPerformed
-
-    private void jtfPesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfPesoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfPesoActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
         try {
+
             String pesox = jtfPeso.getText();
             double nuevoReg = Double.parseDouble(pesox);
             Paciente paciente = PacienteData.buscarPacienteDNI(jtfdni.getText());
@@ -276,10 +271,15 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
             RegistroData.agregarRegistro(registro);
             limpiar();
             ArrayList<Registro> reg = (ArrayList<Registro>) RegistroData.listaRegistrosPorDni(paciente.getDni());
+
             for (Registro x : reg) {
                 modelo.addRow(new Object[]{x.getIdRegistro(), x.getPaciente(), x.getPeso(), x.getFecha()});
                 jtableRegistro.setModel(modelo);
             }
+
+            jButton4.setEnabled(false);
+            formatearTexto();
+
         } catch (NumberFormatException xe) {
             JOptionPane.showMessageDialog(null, "Ingrese un valor valido");
         }
@@ -289,8 +289,20 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
     private void jtfdniFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfdniFocusGained
         if (jtfdni.getText().equals("Ingrese el  D.N.I")) {
             jtfdni.setText("");
+            jtfdni.setFont(new Font("Arial", Font.PLAIN, 12));
+            jtfdni.setForeground(Color.BLACK);
         }
     }//GEN-LAST:event_jtfdniFocusGained
+
+    private void jtfPesoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfPesoFocusGained
+
+        if (jtfPeso.getText().equals("Peso")) {
+            jtfPeso.setText("");
+            jtfPeso.setFont(new Font("Arial", Font.PLAIN, 12));
+            jtfPeso.setForeground(Color.BLACK);
+        }
+
+    }//GEN-LAST:event_jtfPesoFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -318,7 +330,7 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
 //estado
         modelo.addColumn("IdRegistro");
         modelo.addColumn("IdPaciente");
-        modelo.addColumn("Peso");
+        modelo.addColumn("Peso (kg)");
         modelo.addColumn("Fecha");
         jtableRegistro.setModel(modelo);
 
@@ -326,14 +338,21 @@ public class RegistroPesoGUI extends javax.swing.JInternalFrame {
 //PROBAR PROBAR
 /*11111*/
     public void limpiar() {
-
-        jtfPeso.setText("Peso");
         int filas = jtableRegistro.getRowCount() - 1;
         for (int f = filas; f > -1; f--) {
             modelo.removeRow(f);
         }
     }
-    
+
+    public void formatearTexto() {
+        jtfPeso.setText("Peso");
+        jtfPeso.setForeground(new Color(153, 153, 153));
+        jtfPeso.setFont(new Font("Arial", Font.ITALIC, 12));
+        jtfdni.setText("Ingrese el  D.N.I");
+        jtfdni.setForeground(new Color(153, 153, 153));
+        jtfdni.setFont(new Font("Arial", Font.ITALIC, 12));
+    }
+
     private void centrarVentana(Dimension size) {
         Dimension internalFrameSize = this.getSize();
 

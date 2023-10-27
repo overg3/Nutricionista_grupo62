@@ -5,7 +5,9 @@
  */
 package nutricionistaapp.vistas;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,12 +22,12 @@ import nutricionistaapp.entidades.Paciente;
  */
 public class AntecedentesGUI extends javax.swing.JInternalFrame {
 
-    DefaultTableModel modelo = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int fila, int col) {
-                return false;
-            }
-        };
+    DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int fila, int col) {
+            return false;
+        }
+    };
 
     public AntecedentesGUI(Dimension size) {
         initComponents();
@@ -56,8 +58,6 @@ public class AntecedentesGUI extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
 
         setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
         setTitle("Antecedentes");
 
         jbBuscar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -71,18 +71,16 @@ public class AntecedentesGUI extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setText("Antecedentes ");
 
+        jtfID.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
+        jtfID.setForeground(new java.awt.Color(153, 153, 153));
         jtfID.setText("Ingrese el D.N.I");
         jtfID.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jtfIDFocusGained(evt);
             }
         });
-        jtfID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfIDActionPerformed(evt);
-            }
-        });
 
+        jtfNombre.setEditable(false);
         jtfNombre.setText(" ");
         jtfNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,7 +212,8 @@ public class AntecedentesGUI extends javax.swing.JInternalFrame {
 
     private void jbNuevaBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevaBusquedaActionPerformed
         limpiar();
-        jtfID.setText("");
+        jtfID.setText("Ingrese el D.N.I");
+        jtfID.setForeground(new Color(153, 153, 153));
         jtfNombre.setText("");
         limpiar();
     }//GEN-LAST:event_jbNuevaBusquedaActionPerformed
@@ -227,22 +226,19 @@ public class AntecedentesGUI extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfNombreActionPerformed
 
-    private void jtfIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfIDActionPerformed
-
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         try {
             limpiar();
-            Paciente dni = PacienteData.buscarPacienteDNI(jtfID.getText());
-            jtfNombre.setText(dni.getNombre() + " " + dni.getApellido());
-            ArrayList<Antecedente> ante = (ArrayList<Antecedente>) AntecedenteData.listarAntecedentesIDPaciente(dni.getIdPaciente());
+            int dni = Integer.parseInt(jtfID.getText().trim());
+            Paciente paciente = PacienteData.buscarPacienteDNI(jtfID.getText().trim());
+            jtfNombre.setText(paciente.getNombre() + " " + paciente.getApellido());
+            ArrayList<Antecedente> ante = (ArrayList<Antecedente>) AntecedenteData.listarAntecedentesIDPaciente(paciente.getIdPaciente());
             for (Antecedente x : ante) {
                 modelo.addRow(new Object[]{x.getAntecendete()});
                 jtableAntecedentes.setModel(modelo);
             }
         } catch (NumberFormatException xe) {
-            JOptionPane.showMessageDialog(null, "Ingrese un valor valido");
+            JOptionPane.showMessageDialog(null, "Ingrese un valor válido");
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
 //ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
@@ -258,6 +254,8 @@ public class AntecedentesGUI extends javax.swing.JInternalFrame {
 
         if (jtfID.getText().equals("Ingrese el D.N.I")) {
             jtfID.setText("");
+            jtfID.setFont(new Font("Arial", Font.PLAIN, 12));
+            jtfID.setForeground(Color.BLACK);
         }
     }//GEN-LAST:event_jtfIDFocusGained
 
@@ -296,7 +294,5 @@ public class AntecedentesGUI extends javax.swing.JInternalFrame {
         setLocation((size.width - internalFrameSize.width) / 2,
                 (size.height - internalFrameSize.height) / 2);
     }
-    
-    
 
 }

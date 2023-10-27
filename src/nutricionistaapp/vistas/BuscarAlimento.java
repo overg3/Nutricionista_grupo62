@@ -3,6 +3,7 @@ package nutricionistaapp.vistas;
 import java.awt.Dimension;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
@@ -50,7 +51,7 @@ public class BuscarAlimento extends javax.swing.JInternalFrame {
         jbMod = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle(" Buscar / Modificar / Borrar Alimento");
+        setTitle(" Buscar / Modificar Alimento");
 
         jtAlimentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -154,12 +155,13 @@ public class BuscarAlimento extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), " Modificar Alimento ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
 
-        jLabel5.setText("Filtrar por nombre:");
+        jLabel5.setText("Cambiar nombre:");
 
-        jLabel6.setText("Filtrar por categoría:");
+        jLabel6.setText("Cambiar categoría:");
 
-        jLabel7.setText("Filtrar calorías:");
+        jLabel7.setText("Cambiar calorías:");
 
+        jtfCaloriasMod.setEnabled(false);
         jtfCaloriasMod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfCaloriasModActionPerformed(evt);
@@ -173,12 +175,14 @@ public class BuscarAlimento extends javax.swing.JInternalFrame {
 
         jLabel8.setText("(Kcal.)");
 
+        jcbTiposMod.setEnabled(false);
         jcbTiposMod.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcbTiposModItemStateChanged(evt);
             }
         });
 
+        jtfNombreMod.setEnabled(false);
         jtfNombreMod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfNombreModActionPerformed(evt);
@@ -210,7 +214,7 @@ public class BuscarAlimento extends javax.swing.JInternalFrame {
                             .addComponent(jLabel7)
                             .addComponent(jLabel6)
                             .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jtfNombreMod)
@@ -249,7 +253,7 @@ public class BuscarAlimento extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jbCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -270,7 +274,7 @@ public class BuscarAlimento extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jbCancelar)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -349,18 +353,24 @@ public class BuscarAlimento extends javax.swing.JInternalFrame {
 
     private void jbModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModActionPerformed
 
-        String nombre = jtfNombreMod.getText().trim();
-        double calorias = Double.parseDouble(jtfCaloriasMod.getText().trim());
-        ComidaTipo tipo = (ComidaTipo) jcbTiposMod.getSelectedItem();
+        try {
+            if (!jtfNombreMod.getText().trim().isEmpty()
+                    && !jtfCaloriasMod.getText().trim().isEmpty()) {
 
-        comidaSeleccionada.setNombre(nombre);
-        comidaSeleccionada.setTipo(tipo);
-        comidaSeleccionada.setCalorias(calorias);
+                comidaSeleccionada = obtenerCambios();
+                ComidaData.modificarComida(comidaSeleccionada);
 
-        ComidaData.modificarComida(comidaSeleccionada);
-        
-        setTableModelAlimentos();
+                refrescarTabla();
+                limpiarComponentes();
 
+            } else {
+                JOptionPane.showMessageDialog(null, "Hay campos sin completar",
+                        " Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, " Ingrese un valor válido para "
+                    + "las calorías", " Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
 
     }//GEN-LAST:event_jbModActionPerformed
 
@@ -504,20 +514,73 @@ public class BuscarAlimento extends javax.swing.JInternalFrame {
         // Listener que controla si hay una fila seleccionada
         selectionModel.addListSelectionListener((ListSelectionEvent lse) -> {
             if (!lse.getValueIsAdjusting()) {
-                
-                jbMod.setEnabled(true);
 
                 int fila = jtAlimentos.getSelectedRow();
-                String nombre = (String) jtAlimentos.getValueAt(fila, 0);
 
-                comidaSeleccionada = ComidaData.buscarComidaNombre(nombre);
+                if (fila == -1) {
+                    jtfNombreMod.setEnabled(false);
+                    jtfCaloriasMod.setEnabled(false);
+                    jcbTiposMod.setEnabled(false);
+                    jbMod.setEnabled(false);
+                } else {
+                    jtfNombreMod.setEnabled(true);
+                    jtfCaloriasMod.setEnabled(true);
+                    jcbTiposMod.setEnabled(true);
+                    jbMod.setEnabled(true);
+                    String nombre = (String) jtAlimentos.getValueAt(fila, 0);
 
-                jtfNombreMod.setText(comidaSeleccionada.getNombre());
-                jtfCaloriasMod.setText("" + comidaSeleccionada.getCalorias());
-                jcbTiposMod.setSelectedItem(comidaSeleccionada.getTipo());
+                    comidaSeleccionada = ComidaData.buscarComidaNombre(nombre);
 
+                    jtfNombreMod.setText(comidaSeleccionada.getNombre());
+                    jtfCaloriasMod.setText("" + comidaSeleccionada.getCalorias());
+                    jcbTiposMod.setSelectedItem(comidaSeleccionada.getTipo());
+                }
             }
         });
+    }
+
+    private void refrescarTabla() {
+
+        // Obtener el modelo de tabla y
+        // obtener la lista actualizada de alimentos
+        DefaultTableModel tableModel = (DefaultTableModel) jtAlimentos.getModel();
+        listaComidas = ComidaData.listarAlimentos();
+
+        // Eliminar las filas de la tabla y volver a insertar los alimentos
+        tableModel.setRowCount(0);
+
+        for (Comida comida : listaComidas) {
+
+            Object[] fila = {comida.getNombre(), comida.getTipo(),
+                comida.getCalorias()};
+            tableModel.addRow(fila);
+        }
+
+    }
+
+    private void limpiarComponentes() {
+
+        jtfNombreMod.setText("");
+        jtfNombre.setText("");
+        jtfCaloriasMod.setText("");
+        jtfCalorias.setText("");
+        jcbTiposMod.setSelectedIndex(0);
+        jcbTipos.setSelectedIndex(0);
+
+    }
+
+    private Comida obtenerCambios() {
+
+        String nombre = jtfNombreMod.getText().trim();
+        double calorias = Double.parseDouble(jtfCaloriasMod.getText().trim());
+        ComidaTipo tipo = (ComidaTipo) jcbTiposMod.getSelectedItem();
+
+        comidaSeleccionada.setNombre(nombre);
+        comidaSeleccionada.setTipo(tipo);
+        comidaSeleccionada.setCalorias(calorias);
+
+        return comidaSeleccionada;
+
     }
 
 }
