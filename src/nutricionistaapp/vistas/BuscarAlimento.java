@@ -363,6 +363,7 @@ public class BuscarAlimento extends javax.swing.JInternalFrame {
 
                 refrescarTabla();
                 limpiarComponentes();
+                JOptionPane.showMessageDialog(null, "Modificación exitosa.");
 
             } else {
                 JOptionPane.showMessageDialog(null, "Hay campos sin completar",
