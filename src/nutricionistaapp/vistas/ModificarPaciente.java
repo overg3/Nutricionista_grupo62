@@ -29,7 +29,7 @@ public class ModificarPaciente extends javax.swing.JDialog {
     public ModificarPaciente(java.awt.Frame parent, boolean modal, Paciente paciente) {
         super(parent, modal);
         initComponents();
-        
+
         this.paciente = paciente;
         System.out.println(paciente.getNombre());
         System.out.println(paciente.getFechaNac());
@@ -278,38 +278,54 @@ public class ModificarPaciente extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    
     //este método se utiliza para guardar la información del paciente después 
     //de que el usuario haya realizado cambios en los campos de entrada en la 
     //interfaz gráfica. También realiza comprobaciones para asegurarse de 
     //que los campos requeridos estén completos antes de guardar la información del paciente.
-    
+
     private void jButtonguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonguardarActionPerformed
         // TODO add your handling code here:
+        try {
+           
 
-        paciente.setNombre(jTnombre.getText());
-        paciente.setAltura(Double.parseDouble(jTaltura.getText()));
-        paciente.setApellido(jTapellido.getText());
-        paciente.setDni(jTdni.getText());
-        paciente.setDomicilio(jTdomicilio.getText());
-        paciente.setEmail(jTemail.getText());
-        paciente.setGenero(Genero.valueOf((String) jComboBoxgenero.getSelectedItem()));
-        paciente.setPesoActual(Double.parseDouble(jTpesoactual.getText()));
-        paciente.setTelefono(jTtelefono.getText());
-        Date fechaNacimiento = jDfecha.getDate();
-        Instant instant = fechaNacimiento.toInstant();
-        LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+            // Validar  campo dni
+            String dni = jTdni.getText();
+            if (dni.matches("\\d+")) {
+                paciente.setDni(dni);
+            } else {
+                throw new NumberFormatException("El DNI ingresado no es un número válido.");
+            }
 
-        PacienteData.modificarPaciente(paciente);
+            paciente.setDomicilio(jTdomicilio.getText());
+            paciente.setEmail(jTemail.getText());
+            paciente.setGenero(Genero.valueOf((String) jComboBoxgenero.getSelectedItem()));
+            paciente.setPesoActual(Double.parseDouble(jTpesoactual.getText()));
 
-        if (!jTaltura.getText().isEmpty() && !jTapellido.getText().isEmpty() && !jTdni.getText().isEmpty() && !jTdomicilio.getText().isEmpty() &&
-            !jTemail.getText().isEmpty()  && !jTnombre.getText().isEmpty() && !jTtelefono.getText().isEmpty() 
-                &&!jTpesoactual.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Paciente guardado con éxito.");
-        } else{
-            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
+            // Validación para el campo Telefono
+            String telefono = jTtelefono.getText();
+            if (telefono.matches("\\d+")) {
+                paciente.setTelefono(telefono);
+            } else {
+                throw new NumberFormatException("El teléfono ingresado no es un número válido.");
+            }
 
+            Date fechaNacimiento = jDfecha.getDate();
+            Instant instant = fechaNacimiento.toInstant();
+            LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+
+            PacienteData.modificarPaciente(paciente);
+
+            if (!jTaltura.getText().isEmpty() && !jTapellido.getText().isEmpty() && !jTdni.getText().isEmpty() && !jTdomicilio.getText().isEmpty()
+                    && !jTemail.getText().isEmpty() && !jTnombre.getText().isEmpty() && !jTtelefono.getText().isEmpty() && !jTpesoactual.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Paciente guardado con éxito.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
+
+
     }//GEN-LAST:event_jButtonguardarActionPerformed
 
     private void jComboBoxgeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxgeneroActionPerformed
@@ -352,13 +368,10 @@ public class ModificarPaciente extends javax.swing.JDialog {
     private javax.swing.JTextField jTtelefono;
     // End of variables declaration//GEN-END:variables
 
-    
-    
     //Se encarga de obtener datos de un objeto paciente
     //y establecer esos datos en varios componentes de interfaz gráfica de usuario (GUI). 
     //En particular, el método asigna valores a los componentes de la GUI de acuerdo 
     //con los atributos del objeto.
-    
     public void obtenerData() {
 
         jTaltura.setText("" + paciente.getAltura());
@@ -370,22 +383,18 @@ public class ModificarPaciente extends javax.swing.JDialog {
         jTpesoactual.setText("" + paciente.getPesoActual());
         jTtelefono.setText(paciente.getTelefono());
         jComboBoxgenero.setSelectedItem(String.valueOf(paciente.getGenero()));
-        
+
         //Obtiene la fecha de nacimiento del paciente, la convierte en un objeto Date 
         //y la asigna a la variable date. 
-         // Establece la fecha de nacimiento del paciente en un componente de fecha llamado 
-         //jDfecha utilizando el objeto date que se creó en el paso anterior.
-         
-       // System.out.println(paciente.getNombre());
-         
+        // Establece la fecha de nacimiento del paciente en un componente de fecha llamado 
+        //jDfecha utilizando el objeto date que se creó en el paso anterior.
+        // System.out.println(paciente.getNombre());
         Date date = Date.from(paciente.getFechaNac().atStartOfDay(ZoneId.systemDefault()).toInstant());
         jDfecha.setDate(date);
-        
-  
-/*LocalDate fechaNacimiento = paciente.getFechaNac();
+
+        /*LocalDate fechaNacimiento = paciente.getFechaNac();
 Instant instant = fechaNacimiento.atStartOfDay(ZoneId.systemDefault()).toInstant();
 Date date = Date.from(instant);
 jDfecha.setDate(date);*/
-
     }
 }
