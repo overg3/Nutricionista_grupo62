@@ -10,6 +10,7 @@ import java.text.Normalizer;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import nutricionistaapp.accesoDatos.PacienteData;
 import nutricionistaapp.entidades.Paciente;
 
@@ -426,6 +427,10 @@ public class BuscaryModificarPaciente extends javax.swing.JInternalFrame {
         }
 
         jTableresultbusqueda.setModel(modelo);
+        
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        jTableresultbusqueda.setRowSorter(sorter);
+        
 
     }
 
