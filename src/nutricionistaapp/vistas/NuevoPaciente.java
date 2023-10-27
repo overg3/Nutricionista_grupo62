@@ -372,7 +372,7 @@ public class NuevoPaciente extends javax.swing.JInternalFrame {
                     pesoActualDouble = Double.parseDouble(pesoactual);
                     alturaDouble = Double.parseDouble(altura);
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "Ingrese valores numéricos válidos en DNI, Teléfono, Altura y Peso Actual.",
+                    JOptionPane.showMessageDialog(this, "Ingrese valores numéricos válidos en DNI y Teléfono",
                             "Advertencia", JOptionPane.WARNING_MESSAGE);
                     return; 
                 }
