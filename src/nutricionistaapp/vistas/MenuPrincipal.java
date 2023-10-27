@@ -208,6 +208,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
         NuevoPaciente np = new NuevoPaciente(jDesktopPane1.getSize());
         jDesktopPane1.add(np);
         np.setVisible(true);
@@ -219,6 +220,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
         BuscaryModificarPaciente bp = new BuscaryModificarPaciente(jDesktopPane1.getSize());
         jDesktopPane1.add(bp);
         bp.setVisible(true);
@@ -227,6 +229,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
 
         jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
         IndicacionesGUI indicacionGUI = new IndicacionesGUI(jDesktopPane1.getSize());
         jDesktopPane1.add(indicacionGUI);
         indicacionGUI.setVisible(true);
@@ -235,6 +238,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
 
         jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
         CrearDietaGUI dietaGUI = new CrearDietaGUI(jDesktopPane1.getSize());
         jDesktopPane1.add(dietaGUI);
         dietaGUI.setVisible(true);
@@ -243,6 +247,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
 
         jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
         ModificarDietaGUI modDietaVentana = new ModificarDietaGUI(jDesktopPane1.getSize());
         jDesktopPane1.add(modDietaVentana);
         modDietaVentana.setVisible(true);
@@ -252,6 +257,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
 
         jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
         AgregarAlimento agregarComidaVentana = new AgregarAlimento(jDesktopPane1.getSize());
         jDesktopPane1.add(agregarComidaVentana);
         agregarComidaVentana.setVisible(true);
@@ -261,6 +267,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
 
         jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
         BuscarAlimento buscarAlimento = new BuscarAlimento(jDesktopPane1.getSize());
         jDesktopPane1.add(buscarAlimento);
         buscarAlimento.setVisible(true);
@@ -270,6 +277,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
 
         jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
         BorrarAlimento borrarAlimento = new BorrarAlimento(jDesktopPane1.getSize());
         jDesktopPane1.add(borrarAlimento);
         borrarAlimento.setVisible(true);
@@ -279,6 +287,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 
         jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
         RegistroPesoGUI rg = new RegistroPesoGUI(jDesktopPane1.getSize());
         jDesktopPane1.add(rg);
         rg.setVisible(true);
@@ -288,6 +297,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
 
         jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
         AntecedentesGUI ante = new AntecedentesGUI(jDesktopPane1.getSize());
         jDesktopPane1.add(ante);
         ante.setVisible(true);
