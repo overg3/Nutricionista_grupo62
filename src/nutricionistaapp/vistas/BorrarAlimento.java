@@ -5,6 +5,7 @@ import java.text.Normalizer;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import nutricionistaapp.accesoDatos.ComidaData;
 import nutricionistaapp.entidades.Comida;
 
@@ -202,6 +203,8 @@ public void nuevoModeloTabla() {
         }
 
         jTAlimentos.setModel(modeloTabla);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modeloTabla);
+        jTAlimentos.setRowSorter(sorter);
     }
 
     private void limpiarTabla() {

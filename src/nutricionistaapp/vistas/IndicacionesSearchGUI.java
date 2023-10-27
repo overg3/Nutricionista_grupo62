@@ -12,6 +12,7 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.text.NumberFormatter;
 import nutricionistaapp.accesoDatos.DietaData;
 import nutricionistaapp.entidades.Dieta;
@@ -411,6 +412,8 @@ public class IndicacionesSearchGUI extends javax.swing.JDialog {
             tableModel.addRow(fila);
         }
         jtDietas.setModel(tableModel);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tableModel);
+        jtDietas.setRowSorter(sorter);
     }
 
     private void formatearSpinners() {

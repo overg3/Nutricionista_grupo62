@@ -7,6 +7,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import nutricionistaapp.accesoDatos.ProfesionalData;
 import nutricionistaapp.entidades.Profesional;
 
@@ -291,6 +292,8 @@ public class CrearDietaDoctorGUI extends javax.swing.JDialog {
 
         // Setear el modelo creado al componente JTable
         jtDoctores.setModel(modeloTabla);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modeloTabla);
+        jtDoctores.setRowSorter(sorter);
 
     }
 

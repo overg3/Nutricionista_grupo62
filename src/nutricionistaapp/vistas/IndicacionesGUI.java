@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import nutricionistaapp.accesoDatos.AntecedenteData;
 import nutricionistaapp.accesoDatos.ComidaData;
 import nutricionistaapp.accesoDatos.DietaData;
@@ -535,6 +536,8 @@ public class IndicacionesGUI extends javax.swing.JInternalFrame {
 
         // Setear el modelo creado al componente JTable
         jtAlimentos.setModel(tableModelAlimentos);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tableModelAlimentos);
+        jtAlimentos.setRowSorter(sorter);
 
     }
 
@@ -569,6 +572,8 @@ public class IndicacionesGUI extends javax.swing.JInternalFrame {
 
         // Setear el modelo creado al componente JTable
         jtIndicaciones.setModel(tableModelIndicaciones);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tableModelIndicaciones);
+        jtIndicaciones.setRowSorter(sorter);
 
     }
 
